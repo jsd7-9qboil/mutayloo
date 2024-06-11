@@ -1,9 +1,10 @@
 import React from "react";
+import { SliderBanner } from "./component/SliderBanner";
 
 export const Home = () => {
   return (
-    <div>
-      <h1>Home</h1>
-    </div>
+    <main>
+      <SliderBanner />
+    </main>
   );
 };

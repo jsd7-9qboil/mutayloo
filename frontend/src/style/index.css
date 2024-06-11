@@ -1,3 +1,77 @@
+/* Fonts */
+@import url('https://fonts.googleapis.com/css?family=Poppins|Kanit:300');
+
+body {
+  font-family: 'Kanit';
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: 'Poppins';
+}
+
+/* Tailwind */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  /* Typography */
+  h1 {
+    @apply text-[3.366rem];
+  }
+  h2 {
+    @apply text-[2.525rem];
+  }
+  h3 {
+    @apply text-[1.894rem];
+  }
+  h4 {
+    @apply text-[1.421rem];
+  }
+  h5 {
+    @apply text-[1.066rem];
+  }
+}
+
+@layer components {
+  /* Buttons */
+  .btn-primary {
+    @apply bg-primary text-white py-2 px-6 rounded-lg border-none transition-all duration-300 shadow-lg;
+  }
+  .btn-primary:hover{
+    @apply bg-opacity-80 shadow-xl;
+  }
+  .btn-accent {
+    @apply bg-accent text-white py-2 px-6 rounded-lg border-none transition-all duration-300 shadow-lg;
+  }
+  .btn-accent:hover{
+    @apply bg-opacity-80 shadow-xl;
+  }
+
+  /* Inputs */
+  .input {
+    @apply bg-white text-black py-2 px-6 rounded-lg border-none ring-1 ring-inset ring-base-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-300;
+  }
+
+  /* Badge */
+  .badge {
+    @apply px-4 text-black outline outline-1 outline-base-500 rounded-full cursor-pointer;
+  }
+  .badge-primary {
+    @apply bg-primary px-4 text-white outline-base-500 rounded-full cursor-pointer;
+  }
+  .badge-secondary {
+    @apply bg-secondary px-4 text-black outline-base-500 rounded-full cursor-pointer;
+  }
+  .badge-accent {
+    @apply bg-accent px-4 text-black outline-base-500 rounded-full cursor-pointer;
+  }
+  .badge-ghost {
+    @apply bg-base-200 px-4 text-black outline-base-500 rounded-full cursor-pointer;
+  }
+
+  /* Quote */
+  .quote {
+    @apply bg-base-200 text-base-700 font-medium py-4 px-6 border-l-4 border-base-900;
+  }
+}
