@@ -1,5 +1,5 @@
 import React from "react";
-import { SliderBanner } from "./SliderBanner";
+import { SliderBanner } from "./component/SliderBanner";
 
 export const Home = () => {
   return (
