@@ -6,6 +6,7 @@ import ReactDOM from "react-dom/client";
 import "@/style/index.css";
 
 // router
+<<<<<<< HEAD
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "@/App.jsx";
 import { Home } from "@/pages/home/Home.jsx";
@@ -59,3 +60,13 @@ ReactDOM.createRoot(document.getElementById("root")).render(
 		<RouterProvider router={router} />
 	</React.StrictMode>
 );
+=======
+import { RouterProvider } from "react-router-dom";
+import router from "@/router/rounter";
+
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <React.StrictMode>
+    <RouterProvider router={router} />
+  </React.StrictMode>
+);
+>>>>>>> 46b7abfed0d7d1a11dc7ae511ca737c32ccbf64e
