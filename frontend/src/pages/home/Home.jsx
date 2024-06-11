@@ -3,8 +3,8 @@ import { SliderBanner } from "./component/SliderBanner";
 
 export const Home = () => {
   return (
-    <main>
+    <div>
       <SliderBanner />
-    </main>
+    </div>
   );
 };
