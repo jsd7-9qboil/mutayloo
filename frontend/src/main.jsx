@@ -2,17 +2,18 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 
-// app and global styles
-import App from "./App.jsx";
-import "./style/index.css";
+// global styles
+import "@/style/index.css";
 
 // router
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { Home } from "./pages/home/Home.jsx";
-import { Horoscope } from "./pages/horoscope/Horoscope.jsx";
-import { ContactUs } from "./pages/contact-us/ContactUs.jsx";
-import { ProductsList } from "./pages/products-list/ProductsList.jsx";
-import { ProductDetail } from "./pages/product-detail/ProductDetail.jsx";
+import App from "@/App.jsx";
+import { Home } from "@/pages/home/Home.jsx";
+import { Horoscope } from "@/pages/horoscope/Horoscope.jsx";
+import { ContactUs } from "@/pages/contact-us/ContactUs.jsx";
+import { ProductsList } from "@/pages/products-list/ProductsList.jsx";
+import { ProductDetail } from "@/pages/product-detail/ProductDetail.jsx";
+import DevDocument from "./pages/DevDocument";
 
 const router = createBrowserRouter([
   {
@@ -38,11 +39,15 @@ const router = createBrowserRouter([
       {
         path: "/product-detail",
         element: <ProductDetail />,
-      }
+      },
     ],
   },
+  // Dev Document
+  {
+    path: "/document",
+    element: <DevDocument />,
+  }
 ]);
-
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
