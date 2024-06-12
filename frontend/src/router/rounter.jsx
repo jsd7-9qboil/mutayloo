@@ -39,7 +39,7 @@ const router = createBrowserRouter([
   {
     path: "/document",
     element: <DevDocument />,
-  }
+  },
 ]);
 
 export default router;
