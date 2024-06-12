@@ -7,7 +7,8 @@ import { ContactUs } from "@/pages/contact-us/ContactUs.jsx";
 import { ProductsList } from "@/pages/products-list/ProductsList.jsx";
 import { ProductDetail } from "@/pages/product-detail/ProductDetail.jsx";
 import DevDocument from "@/pages/DevDocument";
-import SignIn from "../pages/sign-in/Sign-in";
+import SignIn from "@/pages/sign-in/Sign-in";
+import SignUp from "@/pages/sign-up/Sign-up";
 
 const router = createBrowserRouter([
 	{
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
 			{
 				path: "/sign-in",
 				element: <SignIn />,
+			},
+			{
+				path: "/sign-up",
+				element: <SignUp />,
 			},
 		],
 	},
