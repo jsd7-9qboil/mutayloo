@@ -7,6 +7,7 @@ import { ContactUs } from "@/pages/contact-us/ContactUs.jsx";
 import { ProductsList } from "@/pages/products-list/ProductsList.jsx";
 import { ProductDetail } from "@/pages/product-detail/ProductDetail.jsx";
 import DevDocument from "@/pages/DevDocument";
+import { HoroscopeDetail } from "@/pages/horoscope/HoroscopeDetail.jsx";
 
 const router = createBrowserRouter([
   {
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
       {
         path: "/product-detail",
         element: <ProductDetail />,
+      },
+      {
+        path: "/horoscope-detail",
+        element: <HoroscopeDetail />,
       },
     ],
   },
