@@ -85,7 +85,7 @@ export const ProductsList = () => {
       <section className="container">
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
           {productData.map(product => 
-          <Link to="/product-detail">
+          <Link to={`/product/${product.name}`} product={product}>
             <ProductCard key={product.id} product={product} />
           </Link>
           
