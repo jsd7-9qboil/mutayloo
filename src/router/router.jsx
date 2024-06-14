@@ -9,6 +9,7 @@ import { ProductDetail } from "@/pages/product-detail/ProductDetail.jsx";
 import DevDocument from "@/pages/DevDocument";
 import SignIn from "@/pages/sign-in/Sign-in";
 import SignUp from "@/pages/sign-up/Sign-up";
+import { HoroscopeDetail } from "../pages/horoscope/HoroscopeDetail";
 
 const router = createBrowserRouter([
 	{
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
 			{
 				path: "/horoscope",
 				element: <Horoscope />,
+			},
+			{
+				path: "/horoscope-detail",
+				element: <HoroscopeDetail />,
 			},
 			{
 				path: "/contact-us",
