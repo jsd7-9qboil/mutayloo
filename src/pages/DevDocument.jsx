@@ -130,35 +130,55 @@ const DevDocument = () => {
             )}
             {handleBadgeShow === "badge-primary" && (
               <p>
-                &lt;span
-                className=&quot;badge-primary&quot;&gt;Badge
+                &lt;span className=&quot;badge-primary&quot;&gt;Badge
                 Primary&lt;/span&gt;
               </p>
             )}
             {handleBadgeShow === "badge-secondary" && (
               <p>
-                &lt;span
-                className=&quot;badge-secondary&quot;&gt;Badge
+                &lt;span className=&quot;badge-secondary&quot;&gt;Badge
                 Secondary&lt;/span&gt;
               </p>
             )}
             {handleBadgeShow === "badge-accent" && (
               <p>
-                &lt;span
-                className=&quot;badge-accent&quot;&gt;Badge
+                &lt;span className=&quot;badge-accent&quot;&gt;Badge
                 Accent&lt;/span&gt;
               </p>
             )}
             {handleBadgeShow === "badge-ghost" && (
               <p>
-                &lt;span
-                className=&quot;badge-ghost&quot;&gt;Badge
+                &lt;span className=&quot;badge-ghost&quot;&gt;Badge
                 Ghost&lt;/span&gt;
               </p>
             )}
           </div>
         </div>
         <hr />
+
+        {/* Form */}
+        <div className="my-12">
+          <h3>Form</h3>
+          <div className="flex flex-col gap-4">
+            <label className="label">
+              <span className="label-text">Input Text</span>
+              <input 
+                type="text" 
+                placeholder="Input Text"
+                className="input"
+              />
+            </label>
+            <label className="bg-white flex">
+              <input 
+                type="text" 
+                className="w-full py-2"
+              />
+              <button 
+                className="text-black"
+              >Submit</button>
+            </label>
+          </div>
+        </div>
       </section>
     </main>
   );
