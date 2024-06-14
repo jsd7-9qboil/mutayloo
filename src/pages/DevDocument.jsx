@@ -155,7 +155,6 @@ const DevDocument = () => {
           </div>
         </div>
         <hr />
-
         {/* Form */}
         <div className="my-12">
           <h3>Form</h3>
@@ -179,6 +178,7 @@ const DevDocument = () => {
             </label>
           </div>
         </div>
+
       </section>
     </main>
   );

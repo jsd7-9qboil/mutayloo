@@ -17,7 +17,6 @@ export const Header = () => {
   };
 
   console.log(isOpen);
-
   return (
     <>
       <header className="bg-white h-[60px] lg:h-[68px] shadow-lg sticky top-0 z-20">
