@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const HoroPicture = () => {
+export const HoroDetailPicture = () => {
   return (
     <section className="container lg:p-4 ">
       <div className="container">

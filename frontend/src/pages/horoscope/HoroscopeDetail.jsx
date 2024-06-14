@@ -1,6 +1,6 @@
 import React from 'react'
-import { HoroHeader } from './components/HoroHeader';
-import { HoroPicture } from './components/HoroPicture';
+import { HoroDetailHeader } from './components/HoroDetailHeader';
+import { HoroDetailPicture } from './components/HoroDetailPicture';
 import { Detail } from './components/Detail';
 import  ProductCard  from "../../components/ui/ProductCard";
 
@@ -9,8 +9,8 @@ import  ProductCard  from "../../components/ui/ProductCard";
 export const HoroscopeDetail = () => {
   return (
     <div>
-        <HoroHeader/>
-        <HoroPicture/>
+        <HoroDetailHeader/>
+        <HoroDetailPicture/>
         <Detail/>
         <ProductCard/>
     </div>

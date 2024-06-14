@@ -14,10 +14,16 @@ export const Detail = () => {
           </div>
           <div className="flex flex-1 gap-2 py-8 pl-2 text-base text-neutral-900 justify-end">
             <div className="my-auto">Share</div>
-            <IoArrowRedoOutline className="w-4 h-4"/>
-            <a href="https://www.facebook.com/login/"><CiFacebook className="w-4 h-4" /></a>
-            <a href="https://x.com/i/flow/login"><FaSquareXTwitter className="w-4 h-4"/></a>
-            <a href="https://access.line.me/oauth2/v2.1/login?returnUri=%2Foauth2%2Fv2.1%2Fauthorize%2Fconsent%3Fscope%3Dopenid%2Bprofile%2Bfriends%2Bgroups%2Btimeline.post%2Bmessage.write%26response_type%3Dcode%26redirect_uri%3Dhttps%253A%252F%252Fsocial-plugins.line.me%252Fwidget%252FloginCallback%253FreturnUrl%253Dhttps%25253A%25252F%25252Fsocial-plugins.line.me%25252Fwidget%25252Fclose%26state%3D9fec98665820574ebc349f47d089a6%26client_id%3D1446101138&loginChannelId=1446101138#/"><FaLine className="w-4 h-4"/></a>
+            <IoArrowRedoOutline className="w-4 h-4" />
+            <a href="https://www.facebook.com/login/">
+              <CiFacebook className="w-4 h-4" />
+            </a>
+            <a href="https://x.com/i/flow/login">
+              <FaSquareXTwitter className="w-4 h-4" />
+            </a>
+            <a href="https://access.line.me/oauth2/v2.1/login?returnUri=%2Foauth2%2Fv2.1%2Fauthorize%2Fconsent%3Fscope%3Dopenid%2Bprofile%2Bfriends%2Bgroups%2Btimeline.post%2Bmessage.write%26response_type%3Dcode%26redirect_uri%3Dhttps%253A%252F%252Fsocial-plugins.line.me%252Fwidget%252FloginCallback%253FreturnUrl%253Dhttps%25253A%25252F%25252Fsocial-plugins.line.me%25252Fwidget%25252Fclose%26state%3D9fec98665820574ebc349f47d089a6%26client_id%3D1446101138&loginChannelId=1446101138#/">
+              <FaLine className="w-4 h-4" />
+            </a>
           </div>
         </div>
         <div className="mt-4 w-full text-base leading-6 text-neutral-700 text-justify">
