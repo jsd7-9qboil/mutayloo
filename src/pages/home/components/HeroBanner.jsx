@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+
 import { AiOutlineArrowRight } from "react-icons/ai";
 
 // Import Swiper React components
@@ -10,6 +11,9 @@ import "swiper/css/pagination";
 
 // import required modules
 import { Pagination, Autoplay } from "swiper/modules";
+
+// data
+import bannerData from "@/data/banner";
 
 const BannerItem = ({ banner }) => {
   return (
@@ -39,43 +43,6 @@ const BannerItem = ({ banner }) => {
 };
 
 const HeroBanner = () => {
-  const bannerData = [
-    {
-      id: 1,
-      title: "&quot;เลือกเครื่องประดับ <br /> ตามดวงราษีได้ที่นี่&quot;",
-      subtitle: "เครื่องประดับสายมู <br /> ที่สาวๆทุกคนต้องเป็นเจ้าของ",
-      imageUrl: "https://via.placeholder.com/1920x650",
-    },
-    {
-      id: 2,
-      title: "lorem ipsum",
-      subtitle:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-      imageUrl: "https://via.placeholder.com/1920x650",
-    },
-    {
-      id: 3,
-      title: "lorem ipsum",
-      subtitle:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-      imageUrl: "https://via.placeholder.com/1920x650",
-    },
-    {
-      id: 4,
-      title: "lorem ipsum",
-      subtitle:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-      imageUrl: "https://via.placeholder.com/1920x650",
-    },
-    {
-      id: 5,
-      title: "lorem ipsum",
-      subtitle:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-      imageUrl: "https://via.placeholder.com/1920x650",
-    },
-  ];
-
   return (
     <section className="bg-accent max-h-[650px] overflow-hidden">
       <Swiper
