@@ -9,7 +9,7 @@ export const Footer = () => {
           <div className="lg:flex lg:items-center lg:gap-4">
             <h3>Mutayloo</h3>
             <p className="hidden lg:block text-3xl">|</p>
-            <p className="text-base-100">เครื่องประดับสายหมู</p>
+            <p className="text-base-100">เครื่องประดับสายมู</p>
           </div>
         </div>
         <div className="grid lg:grid-cols-3">
