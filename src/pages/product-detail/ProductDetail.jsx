@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import { AiFillStar } from "react-icons/ai";
 import { RiShareForwardLine } from "react-icons/ri";
 import { MdOutlineNavigateNext } from "react-icons/md";
+import ProductCard from "../../components/ui/ProductCard";
 
 import RelatedProducts from "../../components/ui/RelatedProducts";
 
-export const ProductDetail = () => {
+export const ProductDetail = ({product}) => {
+  console.log(product);
   const [quantity, setQuantity] = useState(1);
 
   const handleDecrement = () => {
@@ -150,15 +152,6 @@ export const ProductDetail = () => {
       </section>
 
       <RelatedProducts/>
-
-      <section className="container py-6">
-        <h2 className="py-4">
-          Related Products
-        </h2>
-
-        
-   
-      </section>
     </div>
   );
 };
