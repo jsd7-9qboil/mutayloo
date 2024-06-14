@@ -151,29 +151,14 @@ export const ProductDetail = () => {
 
       <RelatedProducts/>
 
-      {/* <section className="container py-6">
+      <section className="container py-6">
         <h2 className="py-4">
           Related Products
         </h2>
 
         
-        <div className="container mx-auto">
-          <div className="flex space-x-4 overflow-x-auto md:flex-wrap md:justify-around md:overflow-visible md:space-x-0">
-            <div className="min-w-full md:min-w-0 md:w-[23%]">
-              <ProductCard />
-            </div>
-            <div className="min-w-full md:min-w-0 md:w-[23%]">
-              <ProductCard />
-            </div>
-            <div className="min-w-full md:min-w-0 md:w-[23%]">
-              <ProductCard />
-            </div>
-            <div className="min-w-full md:min-w-0 md:w-[23%]">
-              <ProductCard />
-            </div>
-          </div>
-        </div>
-      </section> */}
+   
+      </section>
     </div>
   );
 };
