@@ -5,6 +5,10 @@ import { AiOutlineShoppingCart } from "react-icons/ai";
 const ProductCard = ({ product }) => {
   console.log(product);
 
+  // Ensure product and product.image are defined before accessing properties
+  const productImage = product?.image?.thumbnail || "default-image-url"; // Provide a default image URL if product.image.thumbnail is undefined
+  const productAlt = product?.image?.alt || "Product Image";
+
   return (
     <div className="flex flex-col justify-center bg-base-100 rounded-tr-3xl rounded-bl-3xl">
       {/* head */}
@@ -24,8 +28,8 @@ const ProductCard = ({ product }) => {
       {/* body */}
       <figure className="relative w-full">
         <img
-          src={product.image.thumbnail}
-          alt={product.image.alt}
+          src={productImage}
+          alt={productAlt}
           className="w-full h-full object-cover"
         />
         <button className="hidden lg:block btn-primary px-8 absolute bottom-4 left-1/2 transform -translate-x-1/2">
@@ -38,14 +42,16 @@ const ProductCard = ({ product }) => {
       {/* footer */}
       <div className="flex flex-col items-center px-4 py-6 w-full">
         <p className="self-stretch text-xl font-bold leading-4 text-center uppercase text-stone-700">
-          {product.name}
+          {product?.name || "Product Name"}
         </p>
         <div className="flex gap-3 mt-2 text-sm leading-5 whitespace-nowrap">
           <p className="font-semibold text-neutral-900">
-            {product.discount ? `$${product.discount}` : `$${product.price}`}
+            {product?.discount
+              ? `$${product.discount}`
+              : `$${product?.price || "0.00"}`}
           </p>
           <p className="text-base-700 line-through">
-            {product.discount ? `$${product.price}` : null}
+            {product?.discount ? `$${product?.price}` : null}
           </p>
         </div>
         <div className="flex gap-2 justify-center mt-2">

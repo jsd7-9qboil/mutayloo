@@ -1,9 +1,14 @@
 import React, { useState } from "react";
-import ProductCard from "@/components/ui/ProductCard";
+import ProductCard from "./../../components/ui/ProductCard";
 import { FaAngleDown } from "react-icons/fa";
 import { IoFilter } from "react-icons/io5";
+import productData from "./../../data/product"
+import { Link } from "react-router-dom";
+
 
 export const ProductsList = () => {
+  console.log(productData);
+
   const [isSortOpen, setIsSortOpen] = useState(false);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
 
@@ -79,14 +84,12 @@ export const ProductsList = () => {
       </section>
       <section className="container">
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
+          {productData.map(product => 
+          <Link to="/product-detail">
+            <ProductCard key={product.id} product={product} />
+          </Link>
+          
+            )}
         </div>
       </section>
     </main>
