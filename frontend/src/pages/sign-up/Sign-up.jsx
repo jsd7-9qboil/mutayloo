@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const Register = () => {
 	const [formData, setFormData] = useState({
@@ -12,63 +12,55 @@ const Register = () => {
 
 	const [formErrors, setFormErrors] = useState({});
 	const [formSuccess, setFormSuccess] = useState({});
-	const [showPassword, setShowPassword] = useState(false);
 
 	const validate = (name, value) => {
 		switch (name) {
 			case "firstName":
 			case "lastName":
-				if (!/^[a-zA-Zก-๙]{4,}$/.test(value)) {
-					return "Required: must be at least 4 characters long and contain only Thai or English letters";
-				} else {
-					setFormSuccess((prev) => ({ ...prev, [name]: "Correct input" }));
-					return "";
-				}
+				return !/^[a-zA-Zก-๙]{4,}$/.test(value)
+					? "Required: must be at least 4 characters long and contain only Thai or English letters"
+					: "";
 			case "username":
-				if (!/^[a-zA-Z0-9]{8,}$/.test(value)) {
-					return "Required: must be at least 8 characters long and contain only English letters and numbers";
-				} else {
-					setFormSuccess((prev) => ({ ...prev, [name]: "Correct input" }));
-					return "";
-				}
+				return !/^[a-zA-Z0-9]{8,}$/.test(value)
+					? "Required: must be at least 8 characters long and contain only English letters and numbers"
+					: "";
 			case "email":
-				if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
-					return "Required: must be a valid email address";
-				} else {
-					setFormSuccess((prev) => ({ ...prev, [name]: "Correct input" }));
-					return "";
-				}
+				return !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
+					? "Required: must be a valid email address"
+					: "";
 			case "password":
-				if (!/^[a-zA-Z0-9]{8,}$/.test(value)) {
-					return "Required: must be at least 8 characters long and contain only English letters and numbers";
-				} else {
-					setFormSuccess((prev) => ({ ...prev, [name]: "Correct input" }));
-					return "";
-				}
+				return !/^[a-zA-Z0-9]{8,}$/.test(value)
+					? "Required: must be at least 8 characters long and contain only English letters and numbers"
+					: "";
 			case "confirmPassword":
-				if (value !== formData.password) {
-					return "Required: passwords must match";
-				} else {
-					setFormSuccess((prev) => ({ ...prev, [name]: "Correct input" }));
-					return "";
-				}
+				return value !== formData.password
+					? "Required: passwords must match"
+					: "";
 			default:
 				return "";
 		}
 	};
 
+	useEffect(() => {
+		const newErrors = {};
+		const newSuccess = {};
+
+		Object.keys(formData).forEach((key) => {
+			const error = validate(key, formData[key]);
+			if (error) {
+				newErrors[key] = error;
+			} else if (formData[key]) {
+				newSuccess[key] = "Correct input";
+			}
+		});
+
+		setFormErrors(newErrors);
+		setFormSuccess(newSuccess);
+	}, [formData]);
+
 	const handleChange = (e) => {
 		const { name, value } = e.target;
 		setFormData({ ...formData, [name]: value });
-
-		const error = validate(name, value);
-		setFormErrors({ ...formErrors, [name]: error });
-
-		if (!error) {
-			setFormSuccess((prev) => ({ ...prev, [name]: "Correct input" }));
-		} else {
-			setFormSuccess((prev) => ({ ...prev, [name]: "" }));
-		}
 	};
 
 	const handleSubmit = (e) => {
@@ -125,14 +117,14 @@ const Register = () => {
 									onChange={handleChange}
 									className={`block w-full rounded-md px-3.5 py-2 text-gray-900 shadow-sm focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6 ${
 										formErrors.firstName
-											? "border border-red-500 bg-red-50 placeholder-red-500 focus:ring-red-500"
+											? "border border-purple-300 ring-1 ring-inset ring-purple-500 placeholder:text-gray-400"
 											: formSuccess.firstName
 											? "border border-green-500 bg-green-50 text-green-900 placeholder-green-900 focus:ring-green-500"
-											: "border border-gray-300 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-indigo-600"
+											: "border border-gray-300 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-purple-600"
 									}`}
 									placeholder="First name"
 								/>
-								{formErrors.firstName && (
+								{formErrors.firstName && formData.firstName && (
 									<p className="mt-2 text-sm text-red-600">
 										{formErrors.firstName}
 									</p>
@@ -168,7 +160,7 @@ const Register = () => {
 									}`}
 									placeholder="Last name"
 								/>
-								{formErrors.lastName && (
+								{formErrors.lastName && formData.lastName && (
 									<p className="mt-2 text-sm text-red-600">
 										{formErrors.lastName}
 									</p>
@@ -204,7 +196,7 @@ const Register = () => {
 									}`}
 									placeholder="Username"
 								/>
-								{formErrors.username && (
+								{formErrors.username && formData.username && (
 									<p className="mt-2 text-sm text-red-600">
 										{formErrors.username}
 									</p>
@@ -240,7 +232,7 @@ const Register = () => {
 									}`}
 									placeholder="Email"
 								/>
-								{formErrors.email && (
+								{formErrors.email && formData.email && (
 									<p className="mt-2 text-sm text-red-600">
 										{formErrors.email}
 									</p>
@@ -259,9 +251,9 @@ const Register = () => {
 							>
 								Password
 							</label>
-							<div className="relative mt-2.5">
+							<div className="mt-2.5 relative">
 								<input
-									type={showPassword ? "text" : "password"}
+									type="password"
 									name="password"
 									id="password"
 									autoComplete="new-password"
@@ -276,15 +268,7 @@ const Register = () => {
 									}`}
 									placeholder="Password"
 								/>
-								<button
-									type="button"
-									className="absolute inset-y-0 right-0 px-3 flex items-center text-gray-500"
-									onClick={() => setShowPassword(!showPassword)}
-									style={{ transition: "opacity 0.3s" }}
-								>
-									{showPassword ? "Hide" : "Show"}
-								</button>
-								{formErrors.password && (
+								{formErrors.password && formData.password && (
 									<p className="mt-2 text-sm text-red-600">
 										{formErrors.password}
 									</p>
@@ -303,9 +287,9 @@ const Register = () => {
 							>
 								Confirm Password
 							</label>
-							<div className="relative mt-2.5">
+							<div className="mt-2.5 relative">
 								<input
-									type={showPassword ? "text" : "password"}
+									type="password"
 									name="confirmPassword"
 									id="confirm-password"
 									autoComplete="new-password"
@@ -318,9 +302,9 @@ const Register = () => {
 											? "border border-green-500 bg-green-50 text-green-900 placeholder-green-900 focus:ring-green-500"
 											: "border border-gray-300 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-indigo-600"
 									}`}
-									placeholder="Confirm Password"
+									placeholder="Confirm password"
 								/>
-								{formErrors.confirmPassword && (
+								{formErrors.confirmPassword && formData.confirmPassword && (
 									<p className="mt-2 text-sm text-red-600">
 										{formErrors.confirmPassword}
 									</p>
@@ -336,17 +320,11 @@ const Register = () => {
 					<div className="mt-6">
 						<button
 							type="submit"
-							className="block w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+							className="flex w-full justify-center rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
 						>
 							Sign Up
 						</button>
 					</div>
-					<p className="text-sm text-gray-700 mt-4 text-center">
-						Already have an account?{" "}
-						<a href="#" className="text-indigo-600 hover:underline">
-							Sign in here
-						</a>
-					</p>
 				</form>
 			</div>
 		</div>

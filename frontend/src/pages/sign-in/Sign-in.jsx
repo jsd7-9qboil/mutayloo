@@ -1,6 +1,83 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 const SignIn = () => {
+	const [username, setUsername] = useState("");
+	const [password, setPassword] = useState("");
+	const [errors, setErrors] = useState({});
+	const [isSubmitting, setIsSubmitting] = useState(false);
+
+	const handleValidation = () => {
+		let tempErrors = {};
+		let isValid = true;
+
+		if (!username) {
+			tempErrors["username"] = "Username or Email is required";
+			isValid = false;
+		} else if (
+			!username.match(
+				/^([a-zA-Z0-9_\.\-])+\@([a-zA-Z0-9_\.\-])+\.([a-zA-Z]{2,4})$/
+			) &&
+			!username.match(/^[a-zA-Z0-9]+$/)
+		) {
+			tempErrors["username"] = "Invalid Username or Email";
+			isValid = false;
+		}
+
+		if (!password) {
+			tempErrors["password"] = "Password is required";
+			isValid = false;
+		} else if (password.length < 8) {
+			tempErrors["password"] = "Password must be at least 8 characters long";
+			isValid = false;
+		}
+
+		setErrors(tempErrors);
+		return isValid;
+	};
+
+	const checkCredentials = async () => {
+		// Simulate an API call to check credentials
+		const simulatedDatabaseResponse = {
+			username: "testuser",
+			password: "password123",
+		};
+
+		// Simulate a delay
+		await new Promise((resolve) => setTimeout(resolve, 1000));
+
+		if (
+			username === simulatedDatabaseResponse.username &&
+			password === simulatedDatabaseResponse.password
+		) {
+			return true;
+		} else {
+			return false;
+		}
+	};
+
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		if (handleValidation()) {
+			setIsSubmitting(true);
+		}
+	};
+
+	useEffect(() => {
+		if (isSubmitting) {
+			checkCredentials().then((isValid) => {
+				if (isValid) {
+					console.log("Form submitted successfully");
+					// Perform the sign-in logic here
+					// Reset form and errors if needed
+					setIsSubmitting(false);
+				} else {
+					setErrors({ auth: "Invalid username or password" });
+					setIsSubmitting(false);
+				}
+			});
+		}
+	}, [isSubmitting]);
+
 	return (
 		<div className="isolate bg-white px-6 py-24 sm:py-32 lg:px-8">
 			<div
@@ -24,7 +101,7 @@ const SignIn = () => {
 						Welcome back! Please sign in to your account.
 					</p>
 				</div>
-				<form action="#" method="POST" className="mt-8">
+				<form onSubmit={handleSubmit} className="mt-8">
 					<div className="grid grid-cols-1 gap-y-6">
 						<div>
 							<label
@@ -41,7 +118,12 @@ const SignIn = () => {
 									autoComplete="username"
 									className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
 									placeholder="Username or Email"
+									value={username}
+									onChange={(e) => setUsername(e.target.value)}
 								/>
+								{errors.username && (
+									<p className="text-red-500 text-xs mt-1">{errors.username}</p>
+								)}
 							</div>
 						</div>
 						<div>
@@ -59,9 +141,17 @@ const SignIn = () => {
 									autoComplete="current-password"
 									className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
 									placeholder="Password"
+									value={password}
+									onChange={(e) => setPassword(e.target.value)}
 								/>
+								{errors.password && (
+									<p className="text-red-500 text-xs mt-1">{errors.password}</p>
+								)}
 							</div>
 						</div>
+						{errors.auth && (
+							<p className="text-red-500 text-xs mt-1">{errors.auth}</p>
+						)}
 						<div className="flex items-center justify-between">
 							<div className="flex items-center">
 								<input
@@ -88,12 +178,7 @@ const SignIn = () => {
 						</div>
 					</div>
 					<div className="mt-6">
-						<button
-							type="submit"
-							className="block w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-						>
-							Sign In
-						</button>
+						<button className="btn-primary w-full">Sign In</button>
 					</div>
 					<p className="text-sm text-gray-700 mt-4 text-center">
 						Don't have an account?{" "}
