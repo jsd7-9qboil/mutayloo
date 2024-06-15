@@ -1,9 +1,12 @@
 import React from "react";
+import { HoroscopeHeader } from "./components/HoroscopeHeader";
+import { HoroscopeSymbol } from "./components/HoroscopeSymbol";
 
 export const Horoscope = () => {
-  return (
-    <div>
-      <h1>Horoscope</h1>
-    </div>
-  );
+	return (
+		<div>
+			<HoroscopeHeader />
+			<HoroscopeSymbol />
+		</div>
+	);
 };
