@@ -95,11 +95,11 @@ const Register = () => {
 						Sign Up
 					</h2>
 					<p className="mt-2 text-lg leading-8 text-gray-600">
-						Create a new account by filling in the information below.
+						Create a new account.
 					</p>
 				</div>
 				<form onSubmit={handleSubmit} className="mt-8">
-					<div className="grid grid-cols-1 gap-y-6">
+					<div className="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-6">
 						<div>
 							<label
 								htmlFor="first-name"
@@ -153,10 +153,10 @@ const Register = () => {
 									onChange={handleChange}
 									className={`block w-full rounded-md px-3.5 py-2 text-gray-900 shadow-sm focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6 ${
 										formErrors.lastName
-											? "border border-red-500 bg-red-50 placeholder-red-500 focus:ring-red-500"
+											? "border border-purple-300 ring-1 ring-inset ring-purple-500 placeholder:text-gray-400"
 											: formSuccess.lastName
 											? "border border-green-500 bg-green-50 text-green-900 placeholder-green-900 focus:ring-green-500"
-											: "border border-gray-300 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-indigo-600"
+											: "border border-gray-300 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-purple-600"
 									}`}
 									placeholder="Last name"
 								/>
@@ -189,10 +189,10 @@ const Register = () => {
 									onChange={handleChange}
 									className={`block w-full rounded-md px-3.5 py-2 text-gray-900 shadow-sm focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6 ${
 										formErrors.username
-											? "border border-red-500 bg-red-50 placeholder-red-500 focus:ring-red-500"
+											? "border border-purple-300 ring-1 ring-inset ring-purple-500 placeholder:text-gray-400"
 											: formSuccess.username
 											? "border border-green-500 bg-green-50 text-green-900 placeholder-green-900 focus:ring-green-500"
-											: "border border-gray-300 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-indigo-600"
+											: "border border-gray-300 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-purple-600"
 									}`}
 									placeholder="Username"
 								/>
@@ -225,10 +225,10 @@ const Register = () => {
 									onChange={handleChange}
 									className={`block w-full rounded-md px-3.5 py-2 text-gray-900 shadow-sm focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6 ${
 										formErrors.email
-											? "border border-red-500 bg-red-50 placeholder-red-500 focus:ring-red-500"
+											? "border border-purple-300 ring-1 ring-inset ring-purple-500 placeholder:text-gray-400"
 											: formSuccess.email
 											? "border border-green-500 bg-green-50 text-green-900 placeholder-green-900 focus:ring-green-500"
-											: "border border-gray-300 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-indigo-600"
+											: "border border-gray-300 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-purple-600"
 									}`}
 									placeholder="Email"
 								/>
@@ -261,10 +261,10 @@ const Register = () => {
 									onChange={handleChange}
 									className={`block w-full rounded-md px-3.5 py-2 text-gray-900 shadow-sm focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6 ${
 										formErrors.password
-											? "border border-red-500 bg-red-50 placeholder-red-500 focus:ring-red-500"
+											? "border border-purple-300 ring-1 ring-inset ring-purple-500 placeholder:text-gray-400"
 											: formSuccess.password
 											? "border border-green-500 bg-green-50 text-green-900 placeholder-green-900 focus:ring-green-500"
-											: "border border-gray-300 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-indigo-600"
+											: "border border-gray-300 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-purple-600"
 									}`}
 									placeholder="Password"
 								/>
@@ -297,10 +297,10 @@ const Register = () => {
 									onChange={handleChange}
 									className={`block w-full rounded-md px-3.5 py-2 text-gray-900 shadow-sm focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6 ${
 										formErrors.confirmPassword
-											? "border border-red-500 bg-red-50 placeholder-red-500 focus:ring-red-500"
+											? "border border-purple-300 ring-1 ring-inset ring-purple-500 placeholder:text-gray-400"
 											: formSuccess.confirmPassword
 											? "border border-green-500 bg-green-50 text-green-900 placeholder-green-900 focus:ring-green-500"
-											: "border border-gray-300 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-indigo-600"
+											: "border border-gray-300 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-purple-600"
 									}`}
 									placeholder="Confirm password"
 								/>
@@ -314,6 +314,71 @@ const Register = () => {
 										{formSuccess.confirmPassword}
 									</p>
 								)}
+							</div>
+						</div>
+						<div className="col-span-2">
+							<label
+								htmlFor="birthday"
+								className="block text-sm font-semibold leading-6 text-gray-900"
+							>
+								Birthday
+							</label>
+							<div className="mt-2.5 flex space-x-2">
+								<select
+									name="birthDay"
+									id="birth-day"
+									value={formData.birthDay}
+									onChange={handleChange}
+									className="block w-1/3 rounded-md px-3.5 py-2 text-gray-900 shadow-sm focus:ring-2 focus:ring-inset border border-gray-300 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-purple-600 sm:text-sm sm:leading-6"
+								>
+									<option value="">Day</option>
+									{Array.from({ length: 31 }, (_, i) => (
+										<option key={i + 1} value={i + 1}>
+											{i + 1}
+										</option>
+									))}
+								</select>
+								<select
+									name="birthMonth"
+									id="birth-month"
+									value={formData.birthMonth}
+									onChange={handleChange}
+									className="block w-1/3 rounded-md px-3.5 py-2 text-gray-900 shadow-sm focus:ring-2 focus:ring-inset border border-gray-300 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-purple-600 sm:text-sm sm:leading-6"
+								>
+									<option value="">Month</option>
+									{[
+										"January",
+										"February",
+										"March",
+										"April",
+										"May",
+										"June",
+										"July",
+										"August",
+										"September",
+										"October",
+										"November",
+										"December",
+									].map((month, i) => (
+										<option key={i + 1} value={i + 1}>
+											{month}
+										</option>
+									))}
+								</select>
+								<select
+									name="birthYear"
+									id="birth-year"
+									value={formData.birthYear}
+									onChange={handleChange}
+									className="block w-1/3 rounded-md px-3.5 py-2 text-gray-900 shadow-sm focus:ring-2 focus:ring-inset border border-gray-300 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-purple-600 sm:text-sm sm:leading-6"
+								>
+									<option value="">Year</option>
+									{Array.from({ length: 100 }, (_, i) => (
+										<option key={i + 1920} value={i + 1920}>
+											{i + 1920}
+										</option>
+									))}
+								</select>
 							</div>
 						</div>
 					</div>
