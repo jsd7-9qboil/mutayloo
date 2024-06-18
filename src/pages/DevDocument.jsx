@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { Input } from "../components/ui/Input";
 
 const DevDocument = () => {
+  const [input, setInput] = useState("");
   const [handleBtnShow, setHandleBtnShow] = useState("");
   const [handleBadgeShow, setHandleBadgeShow] = useState("");
 
@@ -161,24 +163,24 @@ const DevDocument = () => {
           <div className="flex flex-col gap-4">
             <label className="label">
               <span className="label-text">Input Text</span>
-              <input 
-                type="text" 
-                placeholder="Input Text"
-                className="input"
+              <Input
+                type="email"
+                className="my-email-input"
+                placeholder="Enter your email"
+                value={input}
+               
               />
             </label>
-            <label className="bg-white flex">
-              <input 
-                type="text" 
-                className="w-full py-2"
+            <label className="label">
+              <span className="label-text">password</span>
+              <Input
+                type="password"
+                className="my-email-input"
+                placeholder="Enter your password"
               />
-              <button 
-                className="text-black"
-              >Submit</button>
             </label>
           </div>
         </div>
-
       </section>
     </main>
   );
