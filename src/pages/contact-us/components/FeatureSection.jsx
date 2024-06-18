@@ -67,6 +67,7 @@ export const FeatureSection = () => {
 //   </div>
 // </div>
 // </div>
+
   );
 };
 
