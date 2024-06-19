@@ -20,10 +20,10 @@ export const Header = () => {
   return (
     <>
       <header className="bg-white h-[60px] lg:h-[68px] shadow-lg sticky top-0 z-20">
-        <div className="container h-full flex justify-between items-center">
+        <div className="container flex items-center justify-between h-full">
           <div className="flex items-center gap-4 lg:flex-row-reverse">
             <Hamburger handleHamburger={handleHamburger} />
-            <span className="font-medium text-xl lg:text-3xl lg:font-semibold">
+            <span className="text-xl font-medium lg:text-3xl lg:font-semibold">
               Mutayloo
             </span>
           </div>
@@ -45,11 +45,17 @@ export const Header = () => {
             </ul>
           </nav>
 
-          <div className="flex gap-4 items-center">
+          <div className="flex items-center gap-4">
             <AiOutlineSearch className="w-6 h-6" />
-            <AiOutlineUser className="w-6 h-6 hidden lg:block" />
-            <AiOutlineHeart className="w-6 h-6 hidden lg:block" />
+            <AiOutlineUser className="hidden w-6 h-6 lg:block" />
+            <AiOutlineHeart className="hidden w-6 h-6 lg:block" />
+            
+            <Link to="/cart">
             <AiOutlineShoppingCart className="w-6 h-6" />
+            </Link>
+            
+           
+            
           </div>
         </div>
       </header>

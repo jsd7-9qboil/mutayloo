@@ -10,7 +10,7 @@ import DevDocument from "@/pages/DevDocument";
 import SignIn from "@/pages/sign-in/Sign-in";
 import SignUp from "@/pages/sign-up/Sign-up";
 import { HoroscopeDetail } from "../pages/horoscope/HoroscopeDetail";
-
+import  Cart  from "../pages/cart/Cart"
 const router = createBrowserRouter([
 	{
 		path: "/",
@@ -48,6 +48,12 @@ const router = createBrowserRouter([
 				path: "/sign-up",
 				element: <SignUp />,
 			},
+			{
+				path: "/cart",
+                element: <Cart />,
+			}
+			
+		
 		],
 	},
 	// Dev Document

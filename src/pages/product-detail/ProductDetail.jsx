@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { AiFillStar } from "react-icons/ai";
 import { RiShareForwardLine } from "react-icons/ri";
 import { MdOutlineNavigateNext } from "react-icons/md";
+import productData from "../../data/product";
 import ProductCard from "../../components/ui/ProductCard";
 
 import RelatedProducts from "../../components/ui/RelatedProducts";
@@ -37,7 +38,8 @@ export const ProductDetail = ({product}) => {
                     </div>
                   </div>
                   <div className="flex flex-col ml-0 lg:ml lg:justify-center items-center w-full lg:w-[81%]">
-                    <div className="shrink-0 mx-auto max-w-full rounded-tr-[40%] rounded-bl-[40%] bg-zinc-300 h-[400px] sm:h-[500px] lg:h-[700px] w-full lg:w-[700px] mt-5 lg:mt-0 p-4"></div>
+                    
+                    <img src="" className="shrink-0 mx-auto max-w-full rounded-tr-[40%] rounded-bl-[40%] bg-zinc-300 h-[400px] sm:h-[500px] lg:h-[700px] w-full lg:w-[700px] mt-5 lg:mt-0 p-4" alt="" />
                   </div>
                 </div>
               </div>
