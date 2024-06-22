@@ -16,7 +16,6 @@ export const Header = () => {
     document.body.style.overflow = isOpen ? "auto" : "hidden";
   };
 
-  console.log(isOpen);
   return (
     <>
       <header className="bg-white h-[60px] lg:h-[68px] shadow-lg sticky top-0 z-20">
@@ -34,7 +33,7 @@ export const Header = () => {
                 <Link to="/">Home</Link>
               </li>
               <li>
-                <Link to="/products-list">Products</Link>
+                <Link to="/products">Products</Link>
               </li>
               <li>
                 <Link to="/horoscope">Horoscope</Link>
@@ -49,7 +48,9 @@ export const Header = () => {
             <AiOutlineSearch className="w-6 h-6" />
             <AiOutlineUser className="w-6 h-6 hidden lg:block" />
             <AiOutlineHeart className="w-6 h-6 hidden lg:block" />
-            <AiOutlineShoppingCart className="w-6 h-6" />
+            <Link to="/cart">
+              <AiOutlineShoppingCart className="w-6 h-6" />
+            </Link>
           </div>
         </div>
       </header>

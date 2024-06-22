@@ -15,7 +15,7 @@ const MobileMenu = ({ isOpen, handleHamburger }) => {
               </Link>
             </li>
             <li>
-              <Link to="/products-list" onClick={handleHamburger}>
+              <Link to="/products" onClick={handleHamburger}>
                 Products
               </Link>
             </li>

@@ -1,18 +1,13 @@
 import React from "react";
 
-import { AiOutlineHeart } from "react-icons/ai";
-import { AiOutlineShoppingCart } from "react-icons/ai";
+import { AiOutlineHeart, AiOutlineShoppingCart } from "react-icons/ai";
 
 const ProductCard = ({ product }) => {
-  console.log(product);
-
-  // Ensure product and product.image are defined before accessing properties
-  const productImage = product?.image?.thumbnail || "default-image-url"; // Provide a default image URL if product.image.thumbnail is undefined
+  const productImage = product?.image?.thumbnail || "default-image-url";
   const productAlt = product?.image?.alt || "Product Image";
 
   return (
     <div className="flex flex-col justify-center bg-base-100 rounded-tr-3xl rounded-bl-3xl">
-      {/* head */}
       <div className="flex gap-2.5 justify-between p-4 w-full">
         <div className="flex flex-col text-base font-bold leading-4 text-center uppercase whitespace-nowrap">
           <div className="justify-center px-3.5 py-1 bg-white rounded-lg text-base-900 uppercase shadow-lg shadow-base-200">
@@ -22,25 +17,21 @@ const ProductCard = ({ product }) => {
             -50%
           </div>
         </div>
-        <button className="flex justify-center items-center p-1.5 my-auto w-8 h-8 bg-white shadow-lg rounded-[32px] hover:scale-110 hover:shadow-xl duration-300">
+        <button
+          className="flex justify-center items-center p-1.5 my-auto w-8 h-8 bg-white shadow-lg rounded-[32px] hover:scale-110 hover:shadow-xl duration-300"
+          aria-label="Add to Wishlist"
+        >
           <AiOutlineHeart className="w-6 h-6" />
         </button>
       </div>
-      {/* body */}
-      <figure className="relative w-full">
+      <figure className="w-full">
         <img
           src={productImage}
           alt={productAlt}
           className="w-full h-full object-cover"
+          loading="lazy"
         />
-        <button className="hidden lg:block btn-primary px-8 absolute bottom-4 left-1/2 transform -translate-x-1/2">
-          Add to cart
-        </button>
-        <button className="lg:hidden btn-primary px-8 absolute bottom-4 left-1/2 transform -translate-x-1/2">
-          <AiOutlineShoppingCart className="w-6 h-6" />
-        </button>
       </figure>
-      {/* footer */}
       <div className="flex flex-col items-center px-4 py-6 w-full">
         <p className="self-stretch text-xl font-bold leading-4 text-center uppercase text-stone-700">
           {product?.name || "Product Name"}
