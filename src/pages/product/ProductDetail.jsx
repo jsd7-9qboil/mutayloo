@@ -6,8 +6,6 @@ import ProductGallery from "./components/ProductGallery";
 import ProductAction from "./components/ProductAction";
 import ProductTab from "./components/ProductTab";
 
-// context
-
 const ProductDetail = () => {
   const { id } = useParams();
   const product = productData.find(

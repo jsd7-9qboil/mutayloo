@@ -28,19 +28,23 @@ const router = createBrowserRouter([
         path: "/",
         element: <Home />,
       },
+
+      // horoscope
       {
         path: "/horoscope",
         element: <Horoscope />,
       },
       {
-        path: "/horoscope-detail",
+        path: "/horoscope/:id",
         element: <HoroscopeDetail />,
       },
+
+      // contact-us
       {
         path: "/contact-us",
         element: <ContactUs />,
       },
-      
+
       // products
       {
         path: "/products",
