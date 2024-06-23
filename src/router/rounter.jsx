@@ -7,9 +7,7 @@ import { ContactUs } from "@/pages/contact-us/ContactUs.jsx";
 import { ProductsList } from "@/pages/products-list/ProductsList.jsx";
 import { ProductDetail } from "@/pages/product-detail/ProductDetail.jsx";
 import DevDocument from "@/pages/DevDocument";
-import SignIn from "@/pages/sign-in/Sign-in";
-import Register from "@/pages/sign-up/Register";
-import { HoroscopeDetail } from "../pages/horoscope/HoroscopeDetail";
+import SignIn from "../pages/sign-in/Sign-in";
 
 const router = createBrowserRouter([
 	{
@@ -25,10 +23,6 @@ const router = createBrowserRouter([
 				element: <Horoscope />,
 			},
 			{
-				path: "/horoscope-detail",
-				element: <HoroscopeDetail />,
-			},
-			{
 				path: "/contact-us",
 				element: <ContactUs />,
 			},
@@ -37,16 +31,12 @@ const router = createBrowserRouter([
 				element: <ProductsList />,
 			},
 			{
-				path: "/product/:name",
+				path: "/product-detail",
 				element: <ProductDetail />,
 			},
 			{
 				path: "/sign-in",
 				element: <SignIn />,
-			},
-			{
-				path: "/sign-up",
-				element: <Register />,
 			},
 		],
 	},
