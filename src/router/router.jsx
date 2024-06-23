@@ -11,6 +11,8 @@ import SignIn from "@/pages/sign-in/Sign-in";
 import SignUp from "@/pages/sign-up/Sign-up";
 import { HoroscopeDetail } from "../pages/horoscope/HoroscopeDetail";
 import  Cart  from "../pages/cart/Cart"
+import Checkout from "../pages/checkout/Checkout";
+import Complete from "../pages/complete/Complete";
 const router = createBrowserRouter([
 	{
 		path: "/",
@@ -51,9 +53,16 @@ const router = createBrowserRouter([
 			{
 				path: "/cart",
                 element: <Cart />,
+			},
+			{
+				path: "/checkout",
+				element: <Checkout/>,
+			},
+			{
+				path: "/complete",
+                element: <Complete/>
 			}
 			
-		
 		],
 	},
 	// Dev Document
