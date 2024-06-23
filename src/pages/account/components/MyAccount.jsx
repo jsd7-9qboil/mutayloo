@@ -2,118 +2,129 @@ import React from "react";
 
 const MyAccount = () => {
   return (
-    <section className="flex flex-col grow px-20 text-xs leading-3 text-zinc-500 w-full">
-      <h2 className="mr-7 text-xl font-semibold leading-8 text-black max-md:mr-2.5 max-md:max-w-full">
-        Account Details
-      </h2>
-      <form>
-        <label
-          htmlFor="firstName"
-          className="mt-6 mr-7 font-bold uppercase max-md:mr-2.5 max-md:max-w-full"
-        >
-          First name *
-        </label>
-        <input
-          id="firstName"
-          type="text"
-          className="justify-center px-4 py-2 mt-3 mr-7 text-base leading-7 bg-white rounded-md 
-          border border-solid border-stone-300 text-zinc-500 max-md:mr-2.5 max-md:max-w-full"
-          placeholder="First name"
-        />
-        <label
-          htmlFor="lastName"
-          className="mt-6 mr-7 font-bold uppercase max-md:mr-2.5 max-md:max-w-full"
-        >
-          Last name *
-        </label>
-        <input
-          id="lastName"
-          type="text"
-          className="justify-center px-4 py-2 mt-3 mr-7 text-base leading-7 bg-white rounded-md 
-          border border-solid border-stone-300 text-zinc-500 max-md:mr-2.5 max-md:max-w-full"
-          placeholder="Last name"
-        />
-        <label
-          htmlFor="displayName"
-          className="mt-6 mr-7 font-bold uppercase max-md:mr-2.5 max-md:max-w-full"
-        >
-          Display name *
-        </label>
-        <input
-          id="displayName"
-          type="text"
-          className="justify-center px-4 py-2 mt-3 mr-7 text-base leading-7 bg-white rounded-md 
-          border border-solid border-stone-300 text-zinc-500 max-md:mr-2.5 max-md:max-w-full"
-          placeholder="Display name"
-        />
-        <p className="mt-3 mr-7 italic leading-[167%] max-md:mr-2.5 max-md:max-w-full">
-          This will be how your name will be displayed in the account section
-          and in reviews
-        </p>
-        <label
-          htmlFor="email"
-          className="mt-6 mr-7 font-bold uppercase max-md:mr-2.5 max-md:max-w-full"
-        >
-          Email *
-        </label>
-        <input
-          id="email"
-          type="email"
-          className="justify-center px-4 py-2 mt-3 mr-7 text-base leading-7 whitespace-nowrap bg-white 
-          rounded-md border border-solid border-stone-300 text-zinc-500 max-md:mr-2.5 max-md:max-w-full"
-          placeholder="Email"
-        />
-        <h2 className="mt-10 mr-7 text-xl font-semibold leading-8 text-black max-md:mr-2.5 max-md:max-w-full">
-          Password
-        </h2>
-        <label
-          htmlFor="oldPassword"
-          className="mt-6 mr-7 font-bold uppercase max-md:mr-2.5 max-md:max-w-full"
-        >
-          Old password
-        </label>
-        <input
-          id="oldPassword"
-          type="password"
-          className="justify-center px-4 py-2 mt-3 mr-7 text-base leading-7 bg-white rounded-md 
-          border border-solid border-stone-300 text-zinc-500 max-md:mr-2.5 max-md:max-w-full"
-          placeholder="Old password"
-        />
-        <label
-          htmlFor="newPassword"
-          className="mt-6 mr-7 font-bold uppercase max-md:mr-2.5 max-md:max-w-full"
-        >
-          New password
-        </label>
-        <input
-          id="newPassword"
-          type="password"
-          className="justify-center px-4 py-2 mt-3 mr-7 text-base leading-7 bg-white rounded-md 
-          border border-solid border-stone-300 text-zinc-500 max-md:mr-2.5 max-md:max-w-full"
-          placeholder="New password"
-        />
-        <label
-          htmlFor="repeatNewPassword"
-          className="mt-6 mr-7 font-bold uppercase max-md:mr-2.5 max-md:max-w-full"
-        >
-          Repeat new password
-        </label>
-        <input
-          id="repeatNewPassword"
-          type="password"
-          className="justify-center px-4 py-2 mt-3 mr-7 text-base leading-7 bg-white rounded-md 
-          border border-solid border-stone-300 text-zinc-500 max-md:mr-2.5 max-md:max-w-full"
-          placeholder="Repeat new password"
-        />
-        <button
-          type="submit"
-          className="justify-center self-start px-10 py-3 mt-6 text-base font-medium tracking-tight leading-7 
-          text-center text-white bg-purple-600 rounded-lg max-md:px-5"
-        >
-          Save changes
-        </button>
-      </form>
-    </section>
+  <div className="container">
+    <div className="flex flex-col justify-center items-center pt-4 w-full bg-white h-full">
+      <div className="flex flex-col pt-4 lg:pt-0 pb-10 w-full font-medium bg-white">
+        <div className="flex gap-1 self-start  text-sm leading-6 whitespace-nowrap text-zinc-600 lg:hidden">
+          <img
+            loading="lazy"
+            src="https://cdn.builder.io/api/v1/image/assets/TEMP/248cdae6db3f07246219743ced74a85f18d452ccca7b9bbcdfd47edc9f91c26b?"
+            className="shrink-0 my-auto w-full aspect-square"
+          />
+          <div>back</div>
+        </div>
+        <div className="flex flex-col justify-center  mt-10 w-full text-4xl tracking-tight leading-10 text-black">
+          <div className="justify-center text-center  lg:hidden">My Account</div>
+        </div>
+      </div>
+      <div className="flex flex-col  w-full bg-white">
+        <div className="flex flex-col items-center px-4 py-10 w-full bg-gray-100 rounded-lg lg:hidden">
+          <img
+            loading="lazy"
+            src="https://cdn.builder.io/api/v1/image/assets/TEMP/02498d4bd3dce7d4aa0bfdee0ea6100e10b07dc0c451ae2911fc443830dd8fc5?"
+            className="aspect-square w-[82px]"
+          />
+          <div className="mt-1.5 text-xl font-semibold leading-8 text-black">
+            Narathip Thakham
+          </div>
+          <div className="flex gap-5 justify-between self-stretch py-2 pr-2 pl-4 mt-10 bg-white rounded-lg border-2 border-solid border-zinc-500">
+            <div className="my-auto text-base font-semibold leading-7 text-neutral-900">
+              Account
+            </div>
+            <div className="flex justify-center items-center p-1 rounded-[100px]">
+              <img
+                loading="lazy"
+                src="https://cdn.builder.io/api/v1/image/assets/TEMP/6556996aa3f4a3c86d89e3d0686f793f44d2d30536607a1a2d2e23b205bc8977?"
+                className="w-6 aspect-square"
+              />
+            </div>
+          </div>
+        </div>
+        <div className="flex flex-col  pt-10 lg:pt-0 pb-20 text-xs leading-3 text-zinc-500">
+          <div className="text-xl font-semibold leading-8 text-black">
+            Account Details
+          </div>
+          <div>
+            <form className="flex flex-col">
+              <label htmlFor="firstName" className="mt-6 font-bold uppercase">
+                First name *
+              </label>
+              <input
+                type="text"
+                id="firstName"
+                placeholder="First name"
+                className="justify-center px-4 py-2 mt-3 text-base leading-7 bg-white rounded-md border border-solid border-stone-300 text-zinc-500"
+              />
+              <label htmlFor="firstName" className="mt-6 font-bold uppercase">
+                Last name *
+              </label>
+              <input
+                type="text"
+                id="lastName"
+                placeholder="Last name"
+                className="justify-center px-4 py-2 mt-3 text-base leading-7 bg-white rounded-md border border-solid border-stone-300 text-zinc-500"
+              />
+              <label htmlFor="displayName" className="mt-6 font-bold uppercase">
+              Display name *
+              </label>
+              <input
+                type="text"
+                id="displayName"
+                placeholder="Display name"
+                className="justify-center px-4 py-2 mt-3 text-base leading-7 bg-white rounded-md border border-solid border-stone-300 text-zinc-500"
+              />
+              <label htmlFor="email" className="mt-6 font-bold uppercase">
+              Email *
+              </label>
+              <input
+                type="email"
+                id="email"
+                placeholder="email"
+                className="justify-center px-4 py-2 mt-3 text-base leading-7 bg-white rounded-md border border-solid border-stone-300 text-zinc-500"
+              />
+            </form>
+          </div>
+            <div className="mt-10 text-xl font-semibold leading-8 text-black">
+               Password
+            </div>
+            <div>
+                <form className="flex flex-col">
+                      <label htmlFor="firstName" className="mt-6 font-bold uppercase">
+                      Old password
+                      </label>
+                      <input
+                        type="text"
+                        id="oldPassword"
+                        placeholder="Oldpassword"
+                        className="justify-center px-4 py-2 mt-3 text-base leading-7 bg-white rounded-md border border-solid border-stone-300 text-zinc-500"
+                      />
+                      <label htmlFor="firstName" className="mt-6 font-bold uppercase">
+                      new password
+                      </label>
+                      <input
+                        type="text"
+                        id="mewPassword"
+                        placeholder="newPassword"
+                        className="justify-center px-4 py-2 mt-3 text-base leading-7 bg-white rounded-md border border-solid border-stone-300 text-zinc-500"
+                      />
+                      <label htmlFor="email" className="mt-6 font-bold uppercase">
+                      REPEAT NEW PASSWORD
+                      </label>
+                      <input
+                        type="text"
+                        id="repeatNewPassword"
+                        placeholder="Repeat new password"
+                        className="justify-center px-4 py-2 mt-3 text-base leading-7 bg-white rounded-md border border-solid border-stone-300 text-zinc-500"
+                      />
+                </form>
+                <button className="justify-center px-10 py-3 mt-6 text-base font-medium tracking-tight leading-7 text-center text-white bg-purple-600 rounded-lg">
+                    Save changes
+                </button>
+            </div>
+        </div>      
+      </div>
+    </div>
+  </div>   
   );
 };
 

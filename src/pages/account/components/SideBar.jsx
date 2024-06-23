@@ -3,8 +3,8 @@ import { NavLink } from "react-router-dom";
 
 const SideBar = () => {
   return (
-    <aside className="w-full">
-      <div className="flex flex-col px-4 py-10 w-full text-base font-semibold leading-7 bg-gray-100 rounded-lg text-zinc-500 max-md:px-5 max-md:mt-6">
+    <aside className="w-full hidden lg:block">
+      <div className="lg:mb-8 flex flex-col px-4 py-10 mt-16 w-full text-base font-semibold leading-7 bg-gray-100 rounded-lg text-zinc-500 max-md:px-5 max-md:mt-6">
         <div className="flex flex-col">
           <img
             loading="lazy"
@@ -16,26 +16,26 @@ const SideBar = () => {
             Narathip Thakham
           </div>
         </div>
-      </div>
-      <nav>
-        <ul>
-          <li>
-            <NavLink to={"/account"}>Account</NavLink>
-          </li>
-          <li>
-            <NavLink to={"/account/address"}>Addresses</NavLink>
-          </li>
-          <li>
-            <NavLink to={"/account/orders"}>Orders</NavLink>
-          </li>
-          <li>
-            <NavLink to={"/account/wishlist"}>Wishlist</NavLink>
-          </li>
-          <li>
-            <NavLink>Logout</NavLink>
-          </li>
-        </ul>
+        <nav className="ml-8">
+          <ul>
+            <li className="py-4">
+              <NavLink to={"/account"}>Account</NavLink>
+            </li>
+            <li className="py-4">
+              <NavLink to={"/account/address"}>Addresses</NavLink>
+            </li>
+            <li className="py-4">
+              <NavLink to={"/account/orders"}>Orders</NavLink>
+            </li>
+            <li className="py-4">
+              <NavLink to={"/account/wishlist"}>Wishlist</NavLink>
+            </li>
+            <li className="py-4">
+              <NavLink>Logout</NavLink>
+            </li>
+          </ul>
       </nav>
+      </div> 
     </aside>
   );
 };
