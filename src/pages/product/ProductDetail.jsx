@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import { useParams } from "react-router-dom";
 import productData from "../../data/product";
 // components
 import ProductGallery from "./components/ProductGallery";
 import ProductAction from "./components/ProductAction";
 import ProductTab from "./components/ProductTab";
+
+// context
 
 const ProductDetail = () => {
   const { id } = useParams();

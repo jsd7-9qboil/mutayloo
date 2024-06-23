@@ -1,19 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { AiFillStar } from "react-icons/ai";
 import { RiShareForwardLine } from "react-icons/ri";
 import { MdOutlineNavigateNext } from "react-icons/md";
 
-const ProductAction = ({ product, handleAddToCart }) => {
+// context
+import { CartContext } from "../../../context/CartContext";
+
+const ProductAction = ({ product }) => {
+  const { addToCart } = useContext(CartContext);
   const [quantity, setQuantity] = useState(1);
 
-  const handleDecrement = () => {
-    if (quantity > 1) {
-      setQuantity(quantity - 1);
-    }
+  const handleAddToCart = () => {
+    addToCart(product, quantity);
+    console.log("Adding to cart:", product, quantity);
   };
 
-  const handleIncrement = () => {
-    setQuantity(quantity + 1);
+  const increaseQuantity = () => {
+    setQuantity((prevQuantity) => prevQuantity + 1);
+  };
+
+  const decreaseQuantity = () => {
+    setQuantity((prevQuantity) =>
+      prevQuantity > 1 ? prevQuantity - 1 : prevQuantity
+    );
   };
 
   return (
@@ -95,14 +104,14 @@ const ProductAction = ({ product, handleAddToCart }) => {
             </div>
             <div className="flex items-center self-stretch justify-center gap-3 px-4 py-3 rounded-lg bg-neutral-100">
               <button
-                onClick={handleDecrement}
+                onClick={decreaseQuantity}
                 className="px-4 py-2 bg-gray-200 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500"
               >
                 -
               </button>
               <div>{quantity}</div>
               <button
-                onClick={handleIncrement}
+                onClick={increaseQuantity}
                 className="px-4 py-2 bg-gray-200 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500"
               >
                 +
@@ -114,7 +123,7 @@ const ProductAction = ({ product, handleAddToCart }) => {
           </div>
           <div className="flex flex-wrap gap-4 pr-5 mt-8 text-lg font-medium leading-8 tracking-tight text-center text-white lg:pr-20">
             <button
-            
+              onClick={handleAddToCart}
               className="justify-center px-10 py-2.5 bg-purple-600 rounded-lg hover:bg-purple-700 transition-colors focus:outline-none focus:ring-2 focus:ring-purple-500"
             >
               Add to Cart
