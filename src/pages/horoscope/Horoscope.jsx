@@ -1,13 +1,10 @@
-
-import React from 'react'
-import { HoroscopeHeader } from './components/HoroscopeHeader'
-import { HoroscopeSymbol } from './components/HoroscopeSymbol'
+import React from "react";
+import { HoroscopeHeader } from "./components/HoroscopeHeader";
 
 export const Horoscope = () => {
   return (
     <div>
-      <HoroscopeHeader/>
-      <HoroscopeSymbol/>
+      <HoroscopeHeader />
     </div>
   );
 };

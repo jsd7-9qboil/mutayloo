@@ -53,27 +53,38 @@ export const ContactSection = () => {
         </div>
         <div className="lg:grid lg:grid-cols-2 lg:w-full lg:m-auto lg:mt-4">
           <div className="lg:flex lg:flex-col lg:text-start">
-            <div className="mt-8 text-xs font-bold leading-3 uppercase text-zinc-500">
+            <form className="flex flex-col grow self-stretch text-base font-bold leading-4 text-zinc-500 max-md:mt-8 max-md:max-w-full" >
+              <label htmlFor="fullName" className="mt-8 text-xs font-bold leading-3 uppercase text-zinc-500">
               Full Name
-            </div>
-            <div className="justify-center px-4 py-2 mt-3 bg-white rounded-md border border-solid border-stone-300 leading-[162.5%] text-zinc-500">
-              Your Name
-            </div>
-            <div className="lg:mt-6 mt-4 text-xs font-bold leading-3 uppercase text-zinc-500">
-              Email address
-            </div>
-            <div className="justify-center px-4 py-2 mt-3 bg-white rounded-md border border-solid border-stone-300 leading-[162.5%] text-zinc-500">
-              Your Email
-            </div>
-            <div className="lg:mt-6 mt-4 text-xs font-bold leading-3 uppercase text-zinc-500">
-              message
-            </div>
-            <div className="lg:py-24 lg:text-start justify-center p-4 mt-3 leading-7 bg-white rounded-md border border-solid border-stone-300 text-zinc-500">
-              Your message
-            </div>
-            <div className="justify-center lg:justify-start lg:px-0 px-10 py-1.5 mt-4 font-medium tracking-tight leading-7 text-center text-white bg-purple-600 rounded-lg">
+              </label>
+              <input
+                type="text"
+                id="yourName"
+                placeholder="Your name"
+                className="justify-center px-4 py-2 mt-3 bg-white rounded-md border border-solid border-stone-300 leading-[162.5%] text-zinc-500"
+              />
+              <label htmlFor="email" className="lg:mt-6 mt-4 text-xs font-bold leading-3 uppercase text-zinc-500">
+              Email
+              </label>
+              <input
+                type="email"
+                id="email"
+                placeholder="Your email"
+                className="justify-center px-4 py-2 mt-3 bg-white rounded-md border border-solid border-stone-300 leading-[162.5%] text-zinc-500"
+              />
+              <label htmlFor="message" className="lg:mt-6 mt-4 text-xs font-bold leading-3 uppercase text-zinc-500">
+              Message
+              </label>
+              <input
+                type="text"
+                id="message"
+                placeholder="Your message"
+                className="justify-center text-start px-4 py-2 mt-3 bg-white rounded-md border border-solid border-stone-300 leading-[162.5%] text-zinc-500 h-full"
+              />
+            </form>
+            <button className="justify-center lg:justify-start lg:px-0 px-10 py-1.5 mt-4 font-medium tracking-tight leading-7 text-center text-white bg-purple-600 rounded-lg">
               Send Message
-            </div>
+            </button>
           </div>
           <div>
             <div className="lg:flex lg:flex-col lg:ml-5 lg::w-full">
