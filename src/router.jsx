@@ -30,37 +30,37 @@ const router = createBrowserRouter([
       // products
       {
         path: "/products",
-        element: <ProductsList />
+        element: <ProductsList />,
       },
       {
         path: "/product/:id",
-        element: <ProductDetail />
+        element: <ProductDetail />,
       },
 
       // horoscope
       {
         path: "/horoscope",
-        element: <Horoscope />
+        element: <Horoscope />,
       },
       {
         path: "/horoscope/:id",
-        element: <HoroscopeDetail />
+        element: <HoroscopeDetail />,
       },
 
       // contact us
       {
         path: "/contact-us",
-        element: <ContactUs />
+        element: <ContactUs />,
       },
 
       // sign-in, sign-up
       {
         path: "/sign-in",
-        element: <SignIn />
+        element: <SignIn />,
       },
       {
         path: "/sign-up",
-        element: <SignUp />
+        element: <SignUp />,
       },
 
       // account
