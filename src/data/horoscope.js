@@ -1,3 +1,16 @@
+import ariesImg from "../assets/icons/horoscope_symbol/aries.svg";
+import taurusImg from "../assets/icons/horoscope_symbol/taurus.svg";
+import geminiImg from "../assets/icons/horoscope_symbol/gemini.svg";
+import cancerImg from "../assets/icons/horoscope_symbol/cancer.svg";
+import leoImg from "../assets/icons/horoscope_symbol/leo.svg";
+import virgoImg from "../assets/icons/horoscope_symbol/virgo.svg";
+import libraImg from "../assets/icons/horoscope_symbol/libra.svg";
+import scorpioImg from "../assets/icons/horoscope_symbol/scorpio.svg";
+import sagittariusImg from "../assets/icons/horoscope_symbol/sagittarius.svg";
+import capricornImg from "../assets/icons/horoscope_symbol/capricorn.svg";
+import aquariusImg from "../assets/icons/horoscope_symbol/aquarius.svg";
+import piscesImg from "../assets/icons/horoscope_symbol/pisces.svg";
+
 const horoscopeData = [
   {
     id: 1,
@@ -5,7 +18,7 @@ const horoscopeData = [
     description: "13 Apr - 14 May",
     image: ariesImg,
   },
-  {
+    {
     id: 2,
     name: "Taurus",
     description: "15 May - 14 Jun",
