@@ -1,12 +1,12 @@
 import React from "react";
-import { BreadCrums } from "./components/BreadCrums";
 import { ContactSection } from "./components/ContactSection";
 import { FeatureSection } from "./components/FeatureSection";
+import BreadcrumbBanner from "@/components/BreadcrumbBanner";
 
 const ContactUs = () => {
   return (
     <section>
-      <BreadCrums />
+      <BreadcrumbBanner />
       <FeatureSection />
       <ContactSection />
     </section>

@@ -5,6 +5,7 @@ import productData from "../../data/product";
 import ProductGallery from "./components/ProductGallery";
 import ProductAction from "./components/ProductAction";
 import ProductTab from "./components/ProductTab";
+import RelatedProducts from "@/components/RelatedProducts";
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -28,6 +29,10 @@ const ProductDetail = () => {
 
       <section className="container">
         <ProductTab />
+      </section>
+
+      <section>
+        <RelatedProducts />
       </section>
     </main>
   );

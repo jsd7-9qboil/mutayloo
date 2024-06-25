@@ -1,12 +1,12 @@
 import React from "react";
-import { HoroDetailHeader } from "./components/HoroDetailHeader";
 import { HoroDetailPicture } from "./components/HoroDetailPicture";
 import { Detail } from "./components/Detail";
+import BreadcrumbBanner from "@/components/BreadcrumbBanner";
 
 const HoroscopeDetail = () => {
   return (
     <div>
-      <HoroDetailHeader />
+      <BreadcrumbBanner />
       <HoroDetailPicture />
       <Detail />
     </div>
