@@ -6,6 +6,7 @@ import ProductGallery from "./components/ProductGallery";
 import ProductAction from "./components/ProductAction";
 import ProductTab from "./components/ProductTab";
 import RelatedProducts from "@/components/RelatedProducts";
+import BreadcrumbSmall from "@/components/BreadcrumbSmall";
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -16,7 +17,11 @@ const ProductDetail = () => {
   //console.log(product);
   return (
     <main>
-      <section className="container">
+      <section className="container mx-auto py-4">
+        <BreadcrumbSmall />
+      </section>
+
+      <section className="container mx-auto">
         <div className="grid grid-cols-12">
           <div className="col-span-7">
             <ProductGallery />
@@ -27,7 +32,7 @@ const ProductDetail = () => {
         </div>
       </section>
 
-      <section className="container">
+      <section className="container mx-auto my-16">
         <ProductTab />
       </section>
 
