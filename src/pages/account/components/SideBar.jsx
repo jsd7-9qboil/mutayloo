@@ -1,41 +1,112 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
+
+// components
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const SideBar = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleNavigate = (value) => {
+    console.log(value);
+    switch (value) {
+      case "Account":
+        navigate("/account");
+        break;
+      case "Address":
+        navigate("/account/address");
+        break;
+      case "Orders":
+        navigate("/account/orders");
+        break;
+      case "Wishlist":
+        navigate("/account/wishlist");
+        break;
+      case "Log Out":
+        navigate("/account/logout");
+        break;
+      default:
+        break;
+    }
+  };
+
+  const getCurrentPage = () => {
+    switch (location.pathname) {
+      case "/account":
+        return "Account";
+      case "/account/address":
+        return "Address";
+      case "/account/orders":
+        return "Orders";
+      case "/account/wishlist":
+        return "Wishlist";
+      case "/account/logout":
+        return "Log Out";
+      default:
+        return "Account";
+    }
+  };
+
   return (
-    <aside className="w-full hidden lg:block">
-      <div className="lg:mb-8 flex flex-col px-4 py-10 mt-16 w-full text-base font-semibold leading-7 bg-gray-100 rounded-lg text-zinc-500 max-md:px-5 max-md:mt-6">
+    <aside className="w-full">
+      <div className="flex flex-col px-4 py-12 gap-8 bg-base-200 rounded-lg">
         <div className="flex flex-col">
-          <img
-            loading="lazy"
-            src="https://cdn.builder.io/api/v1/image/assets/TEMP/c60886cf1b97dcdf1e3d9d269fb5800da217d2948f61ecf6568f090c1d6a7e90?apiKey=37916082539041799f9e232af03575f2&"
-            alt="User Avatar"
-            className="self-center aspect-square w-[82px]"
-          />
-          <div className="self-center mt-1.5 text-xl leading-8 text-black">
-            Narathip Thakham
-          </div>
+          <Avatar className="self-center aspect-square w-[82px] h-auto">
+            <AvatarImage src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBxKgm60O8nnEzuXGjbrasI0pCeOOrpFYFDA&s" />
+            <AvatarFallback>J</AvatarFallback>
+          </Avatar>
+
+          <p className="text-center mt-2 text-2xl font-semibold">John Doe</p>
         </div>
-        <nav className="ml-8">
-          <ul>
-            <li className="py-4">
-              <NavLink to={"/account"}>Account</NavLink>
-            </li>
-            <li className="py-4">
-              <NavLink to={"/account/address"}>Addresses</NavLink>
-            </li>
-            <li className="py-4">
-              <NavLink to={"/account/orders"}>Orders</NavLink>
-            </li>
-            <li className="py-4">
-              <NavLink to={"/account/wishlist"}>Wishlist</NavLink>
-            </li>
-            <li className="py-4">
-              <NavLink>Logout</NavLink>
-            </li>
-          </ul>
-      </nav>
-      </div> 
+
+        <nav className="px-8 lg:hidden">
+          {/* mobile */}
+          <Select onValueChange={handleNavigate}>
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder={getCurrentPage()} />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectItem value="Account">Account</SelectItem>
+                <SelectItem value="Address">Address</SelectItem>
+                <SelectItem value="Orders">Orders</SelectItem>
+                <SelectItem value="Wishlist">Wishlist</SelectItem>
+                <SelectItem value="Log Out">Log Out</SelectItem>
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+        </nav>
+
+        <nav className="px-8 flex flex-col gap-4">
+          {["Account", "Address", "Orders", "Wishlist", "Log-Out"].map(
+            (item) => (
+              <Link
+                key={item}
+                to={`/account${
+                  item !== "Account" ? `/${item.toLowerCase()}` : ""
+                }`}
+                className={`
+                  ${
+                    getCurrentPage() === item 
+                    && "font-bold pb-2 border-b-2 border-base-500"
+                  }
+                `}
+              >
+                {item.split("-").join(" ")}
+              </Link>
+            )
+          )}
+        </nav>
+      </div>
     </aside>
   );
 };
