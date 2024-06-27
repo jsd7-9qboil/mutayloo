@@ -4,6 +4,7 @@ import CartSummary from "./components/CartSummary";
 import CouponForm from "./components/CouponForm";
 // context
 import { CartContext } from "@/context/CartContext";
+import Status from "../Status";
 
 const Cart = () => {
   const { cartItems } = useContext(CartContext);
@@ -17,8 +18,11 @@ const Cart = () => {
   const total = subtotal + shipping - discount;
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-4xl font-bold my-8">Cart</h1>
+    <div className="container mx-auto">
+      <Status />
+
+      
+
       <div className="flex space-x-4">
         <div className="w-3/4">
           {cartItems.map((item) => (
