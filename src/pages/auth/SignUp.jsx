@@ -1,8 +1,18 @@
 import React, { useState, useEffect } from "react";
+import { validateEmail, validatePassword } from "@/lib/validation";
+// components
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { validateEmail, validatePassword } from "@/lib/validation";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
@@ -10,6 +20,7 @@ const SignUp = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState({});
 
+  // validate
   useEffect(() => {
     const newErrors = {};
     if (email.length > 0 && !validateEmail(email)) {
@@ -25,6 +36,7 @@ const SignUp = () => {
     setErrors(newErrors);
   }, [email, password, confirmPassword]);
 
+  // handleSubmit form
   const handleSubmit = (e) => {
     e.preventDefault();
     if (Object.keys(errors).length === 0) {
@@ -39,6 +51,7 @@ const SignUp = () => {
         className="absolute inset-x-0 top-[-10rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]"
         aria-hidden="true"
       >
+        {/* bg gradient */}
         <div
           className="relative left-1/2 -z-10 aspect-[1155/678] w-[36.125rem] max-w-none -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-40rem)] sm:w-[72.1875rem]"
           style={{
@@ -48,43 +61,42 @@ const SignUp = () => {
         ></div>
       </div>
 
+      {/* title */}
       <div className="mx-auto max-w-2xl text-center">
         <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-          Register
+          Sign Up
         </h2>
         <p className="mt-2 text-lg leading-8 text-gray-600">
           ลงทะเบียนวันนี้เพื่อเปลี่ยนโชคชะตาของคุณ
         </p>
       </div>
+
       <div className="bg-white xl:w-3/5 w-full mx-auto p-4 shadow-lg rounded-tr-[3rem] rounded-bl-[3rem] mt-2">
         {/* form start */}
         <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-y-6 p-6">
-          {/* name */}
-          <div className="grid grid-cols-2">
-            <div className="grid w-full max-w-sm items-center gap-1.5">
-              <Label htmlFor="Fname">Fname</Label>
-              <Input type="text" id="Fname" placeholder="Fname" />
+          <div className="grid grid-cols-2 gap-8">
+            <div className="w-full flex flex-col gap-2">
+              <Label htmlFor="Fname">First Name</Label>
+              <Input
+                type="text"
+                id="Fname"
+                placeholder="Enter your firstname"
+              />
             </div>
 
-            <div className="grid w-full max-w-sm items-center gap-1.5">
-              <Label htmlFor="Lname">Lname</Label>
-              <Input type="text" id="Lname" placeholder="Lname" />
+            <div className="w-full flex flex-col gap-2">
+              <Label htmlFor="Lname">Last Name</Label>
+              <Input type="text" id="Lname" placeholder="Enter your lastname" />
             </div>
           </div>
 
-          {/* mail, number */}
-          <div className="grid grid-cols-2">
-            <div className="grid w-full max-w-sm items-center gap-2">
-              <Label
-                htmlFor="email"
-                className="block text-sm font-semibold leading-6 text-gray-900"
-              >
-                Email
-              </Label>
+          <div className="grid grid-cols-2 gap-8">
+            <div className="w-full flex flex-col gap-2">
+              <Label htmlFor="email">Email</Label>
               <Input
                 type="text"
                 id="email"
-                placeholder="Email"
+                placeholder="Enter your email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
@@ -93,23 +105,18 @@ const SignUp = () => {
               )}
             </div>
 
-            <div className="grid w-full max-w-sm items-center gap-1.5">
+            <div className="w-full flex flex-col gap-2">
               <Label htmlFor="Phone">Phone</Label>
-              <Input type="text" id="Phone" placeholder="Phone" />
+              <Input type="text" id="Phone" placeholder="Enter your number" />
             </div>
           </div>
 
-          <div className="grid w-full max-w-sm items-center gap-2">
-            <Label
-              htmlFor="password"
-              className="block text-sm font-semibold leading-6 text-gray-900"
-            >
-              Password
-            </Label>
+          <div className="grid w-full gap-2">
+            <Label htmlFor="password">Password</Label>
             <Input
               type="password"
               id="password"
-              placeholder="Password"
+              placeholder="Enter your password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
@@ -118,23 +125,77 @@ const SignUp = () => {
             )}
           </div>
 
-          <div className="grid w-full max-w-sm items-center gap-2">
-            <Label
-              htmlFor="confirm-password"
-              className="block text-sm font-semibold leading-6 text-gray-900"
-            >
-              Confirm Password
-            </Label>
+          <div className="grid w-full gap-2">
+            <Label htmlFor="confirm-password">Confirm Password</Label>
             <Input
               type="password"
               id="confirm-password"
-              placeholder="Confirm Password"
+              placeholder="Confirm your password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
             {confirmPassword.length > 0 && errors.confirmPassword && (
               <p className="text-sm text-red-600">{errors.confirmPassword}</p>
             )}
+          </div>
+
+          <div className="grid grid-cols-3 w-full gap-8">
+            <div>
+              <Label htmlFor="">Birthday</Label>
+              <Select>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Select a date" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    <SelectLabel>Select a date</SelectLabel>
+                    <SelectItem value="apple">1</SelectItem>
+                    <SelectItem value="banana">2</SelectItem>
+                    <SelectItem value="blueberry">3</SelectItem>
+                    <SelectItem value="grapes">4</SelectItem>
+                    <SelectItem value="pineapple">5</SelectItem>
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div>
+              <Label htmlFor="">Birthday</Label>
+              <Select>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Select a month" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    <SelectLabel>Select a month</SelectLabel>
+                    <SelectItem value="apple">1</SelectItem>
+                    <SelectItem value="banana">2</SelectItem>
+                    <SelectItem value="blueberry">3</SelectItem>
+                    <SelectItem value="grapes">4</SelectItem>
+                    <SelectItem value="pineapple">5</SelectItem>
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+            </div>
+            
+            <div>
+              <Label htmlFor="">Birthday</Label>
+              <Select>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Select a year" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    <SelectLabel>Select a year</SelectLabel>
+                    <SelectItem value="apple">1</SelectItem>
+                    <SelectItem value="banana">2</SelectItem>
+                    <SelectItem value="blueberry">3</SelectItem>
+                    <SelectItem value="grapes">4</SelectItem>
+                    <SelectItem value="pineapple">5</SelectItem>
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+            </div>
           </div>
 
           <Button type="submit">Sign Up</Button>

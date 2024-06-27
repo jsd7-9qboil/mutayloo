@@ -5,6 +5,7 @@ import { MdOutlineNavigateNext } from "react-icons/md";
 
 // context
 import { CartContext } from "../../../context/CartContext";
+import { Button } from "@/components/ui/button";
 
 const ProductAction = ({ product }) => {
   const { addToCart } = useContext(CartContext);
@@ -26,7 +27,7 @@ const ProductAction = ({ product }) => {
   };
 
   return (
-    <div>
+    <>
       <div className="flex flex-col self-stretch pb-20 mt-8 grow lg:mt-0">
         <div className="flex flex-col px-4 pb-4">
           <div className="flex flex-col pb-6 border-b border-gray-200 border-solid whitespace-nowrap">
@@ -122,19 +123,14 @@ const ProductAction = ({ product }) => {
             </div>
           </div>
           <div className="flex flex-wrap gap-4 pr-5 mt-8 text-lg font-medium leading-8 tracking-tight text-center text-white lg:pr-20">
-            <button
-              onClick={handleAddToCart}
-              className="justify-center px-10 py-2.5 bg-purple-600 rounded-lg hover:bg-purple-700 transition-colors focus:outline-none focus:ring-2 focus:ring-purple-500"
-            >
+            <Button size="lg" onClick={handleAddToCart}>
               Add to Cart
-            </button>
-            <button className="justify-center px-10 py-2.5 bg-purple-600 rounded-lg hover:bg-purple-700 transition-colors focus:outline-none focus:ring-2 focus:ring-purple-500">
-              Buy Now
-            </button>
+            </Button>
+            <Button size="lg">Buy Now</Button>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

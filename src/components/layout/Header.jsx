@@ -22,9 +22,9 @@ export const Header = () => {
         <div className="container h-full flex justify-between items-center">
           <div className="flex items-center gap-4 lg:flex-row-reverse">
             <Hamburger handleHamburger={handleHamburger} />
-            <span className="font-medium text-xl lg:text-3xl lg:font-semibold">
+            <Link to="/" className="font-medium text-xl lg:text-3xl lg:font-semibold">
               Mutayloo
-            </span>
+            </Link>
           </div>
 
           <nav className="hidden lg:block">

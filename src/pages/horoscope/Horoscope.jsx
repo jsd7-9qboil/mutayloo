@@ -1,14 +1,14 @@
 import React from "react";
-import { HoroscopeHeader } from "./components/HoroscopeHeader";
 import horoscopeData from "../../data/horoscope";
 import { Link } from "react-router-dom";
+import BreadcrumbBanner from "@/components/BreadcrumbBanner";
 
 const Horoscope = () => {
   console.log(horoscopeData);
 
   return (
     <div>
-      <HoroscopeHeader />
+      <BreadcrumbBanner />
       <section className="container">
         <h2>Horoscope</h2>
         <div className="grid grid-cols-4 gap-4">
