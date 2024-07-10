@@ -9,7 +9,9 @@ const HoroscopeBanner = () => {
           <h2>Horoscope to choose Jewelry aside</h2>
         </div>
         <div className="row-span-2 lg:row-span-12 flex justify-center items-center">
-          <Button variant="accent" className="w-3/4">Enter</Button>
+          <Button size="lg" variant="accent" className="w-3/4">
+            Enter
+          </Button>
         </div>
         <div className="row-span-5 lg:row-span-12 flex items-center overflow-hidden">
           <img
