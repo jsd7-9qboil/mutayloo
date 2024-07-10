@@ -1,6 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import productData from "../../data/product";
+
 // components
 import ProductGallery from "./components/ProductGallery";
 import ProductAction from "./components/ProductAction";
@@ -14,7 +15,6 @@ const ProductDetail = () => {
     (product) => product.id === parseInt(id, 10)
   );
 
-  //console.log(product);
   return (
     <main>
       <section className="container mx-auto py-4">
@@ -22,11 +22,11 @@ const ProductDetail = () => {
       </section>
 
       <section className="container mx-auto">
-        <div className="grid grid-cols-12">
-          <div className="col-span-7">
+        <div className="grid grid-cols-12 lg:gap-8">
+          <div className="col-span-12 lg:col-span-6 xl:col-span-7">
             <ProductGallery />
           </div>
-          <div className="col-span-5">
+          <div className="col-span-12 lg:col-span-6 xl:col-span-5">
             <ProductAction product={product} />
           </div>
         </div>
