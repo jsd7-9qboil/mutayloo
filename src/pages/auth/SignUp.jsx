@@ -27,6 +27,10 @@ const SignUp = () => {
 	const [month, setMonth] = useState("");
 	const [year, setYear] = useState("");
 	const [errors, setErrors] = useState({});
+	const [loading, setLoading] = useState(false);
+	const [error, setError] = useState("");
+
+	const navigate = useNavigate();
 
 	// validate
 	useEffect(() => {
@@ -44,17 +48,27 @@ const SignUp = () => {
 		setErrors(newErrors);
 	}, [email, password, confirmPassword]);
 
-	// handleSubmit form
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+		setLoading(true);
+		setError("");
+
 		if (Object.keys(errors).length === 0) {
 			const dob = `${day}/${month}/${year}`;
 			try {
-				const response = await register(fname, lname, email, password, dob);
-				console.log("Form submitted", response);
-			} catch (error) {
-				console.error("Error during registration", error.message);
+				const data = await register(fname, lname, email, password, dob);
+				console.log("Form submitted", data);
+
+				// Handle successful registration, e.g., save token, navigate
+				localStorage.setItem("token", data.token);
+				navigate("/account");
+			} catch (err) {
+				setError(err.message);
+			} finally {
+				setLoading(false);
 			}
+		} else {
+			setLoading(false);
 		}
 	};
 
@@ -214,18 +228,29 @@ const SignUp = () => {
 								<SelectContent>
 									<SelectGroup>
 										<SelectLabel>Select a year</SelectLabel>
-										{Array.from({ length: 100 }, (_, i) => (
-											<SelectItem key={2024 - i} value={(2024 - i).toString()}>
-												{2024 - i}
-											</SelectItem>
-										))}
+										{Array.from(
+											{ length: new Date().getFullYear() - 1900 + 1 },
+											(_, i) => (
+												<SelectItem
+													key={new Date().getFullYear() - i}
+													value={(new Date().getFullYear() - i).toString()}
+												>
+													{new Date().getFullYear() - i}
+												</SelectItem>
+											)
+										)}
 									</SelectGroup>
 								</SelectContent>
 							</Select>
 						</div>
 					</div>
 
-					<Button type="submit">Sign Up</Button>
+					<div>
+						<Button type="submit" className="w-full">
+							{loading ? "Loading..." : "Sign Up"}
+						</Button>
+						{error && <p className="text-sm text-red-600">{error}</p>}
+					</div>
 				</form>
 			</div>
 		</main>
