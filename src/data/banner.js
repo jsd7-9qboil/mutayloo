@@ -1,7 +1,7 @@
 const bannerData = [
   {
     id: 1,
-    title: "&quot;เลือกเครื่องประดับ <br /> ตามดวงราษีได้ที่นี่&quot;",
+    title: "&quot;เลือกเครื่องประดับ <br /> ตามดวงราศีได้ที่นี่&quot;",
     subtitle: "เครื่องประดับสายมู <br /> ที่สาวๆทุกคนต้องเป็นเจ้าของ",
     imageUrl: "https://via.placeholder.com/1920x650",
   },

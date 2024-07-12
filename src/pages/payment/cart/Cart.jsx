@@ -21,8 +21,6 @@ const Cart = () => {
     <div className="container mx-auto">
       <Status />
 
-      
-
       <div className="flex space-x-4">
         <div className="w-3/4">
           {cartItems.map((item) => (

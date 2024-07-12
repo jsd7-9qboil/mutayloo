@@ -16,6 +16,8 @@ import WishList from "./pages/account/components/WishList";
 import SignIn from "./pages/auth/SignIn";
 import SignUp from "./pages/auth/SignUp";
 import Cart from "./pages/payment/cart/Cart";
+import Checkout from "./pages/payment/cart/Checkout";
+import OrderComplete from "./pages/payment/cart/OrderComplete";
 
 const router = createBrowserRouter([
   {
@@ -43,6 +45,23 @@ const router = createBrowserRouter([
         path: "/cart",
         element: <Cart />,
       },
+
+      // checkout
+      {
+        path: "/checkout",
+        element: <Checkout />,
+      
+      },
+
+      // complete
+      {
+        path: "/ordercomplete",
+        element: <OrderComplete />,
+      
+      },
+
+
+
 
       // horoscope
       {
