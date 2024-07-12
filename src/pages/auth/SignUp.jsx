@@ -1,73 +1,90 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { validateEmail, validatePassword } from "@/lib/validation";
 import register from "@/api/register";
-// components
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import {
-	Select,
-	SelectContent,
-	SelectGroup,
-	SelectItem,
-	SelectLabel,
-	SelectTrigger,
-	SelectValue,
-} from "@/components/ui/select";
-import { useNavigate } from "react-router-dom"; // Import useNavigate hook
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import CustomToastContainer from "@/pages/auth/ToastContainer.jsx";
+import "react-toastify/dist/ReactToastify.css";
+import DateOfBirthSelector from "../auth/DateOfBirthSelector";
 
 const SignUp = () => {
-	const [fname, setFname] = useState("");
-	const [lname, setLname] = useState("");
-	const [email, setEmail] = useState("");
-	const [phone, setPhone] = useState("");
-	const [password, setPassword] = useState("");
-	const [confirmPassword, setConfirmPassword] = useState("");
-	const [day, setDay] = useState("");
-	const [month, setMonth] = useState("");
-	const [year, setYear] = useState("");
+	const [formData, setFormData] = useState({
+		fname: "",
+		lname: "",
+		email: "",
+		phone: "",
+		password: "",
+		confirmPassword: "",
+		day: "",
+		month: "",
+		year: "",
+	});
+
 	const [errors, setErrors] = useState({});
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState("");
 
 	const navigate = useNavigate();
 
-	// validate
-	useEffect(() => {
+	const handleInputChange = useCallback((e) => {
+		const { name, value } = e.target;
+		setFormData((prev) => ({ ...prev, [name]: value }));
+		setErrors((prev) => ({ ...prev, [name]: "" }));
+	}, []);
+
+	const validateForm = useCallback(() => {
 		const newErrors = {};
-		if (email.length > 0 && !validateEmail(email)) {
+		if (formData.email && !validateEmail(formData.email)) {
 			newErrors.email = "Invalid email address";
 		}
-		if (password.length > 0 && !validatePassword(password)) {
+		if (formData.password && !validatePassword(formData.password)) {
 			newErrors.password =
 				"Password must be at least 8 characters long and include at least one uppercase letter and one number";
 		}
-		if (confirmPassword.length > 0 && password !== confirmPassword) {
+		if (
+			formData.confirmPassword &&
+			formData.password !== formData.confirmPassword
+		) {
 			newErrors.confirmPassword = "Passwords do not match";
 		}
 		setErrors(newErrors);
-	}, [email, password, confirmPassword]);
+		return Object.keys(newErrors).length === 0;
+	}, [formData]);
+
+	useEffect(() => {
+		const timer = setTimeout(validateForm, 300);
+		return () => clearTimeout(timer);
+	}, [formData, validateForm]);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+		if (!validateForm()) return;
+
 		setLoading(true);
 		setError("");
 
-		if (Object.keys(errors).length === 0) {
-			const dob = `${day}/${month}/${year}`;
-			try {
-				const data = await register(fname, lname, email, password, dob);
-				console.log("Form submitted", data);
+		const dob = new Date(`${formData.year}-${formData.month}-${formData.day}`);
+		try {
+			const data = await register(
+				formData.fname,
+				formData.lname,
+				formData.email,
+				formData.password,
+				dob
+			);
+			console.log("Form submitted", data);
 
-				// Handle successful registration, e.g., save token, navigate
-				localStorage.setItem("token", data.token);
+			localStorage.setItem("token", data.token);
+			toast.success("ลงทะเบียนสำเร็จแล้ว");
+			setTimeout(() => {
 				navigate("/account");
-			} catch (err) {
-				setError(err.message);
-			} finally {
-				setLoading(false);
-			}
-		} else {
+			}, 1500);
+		} catch (err) {
+			setError(err.message);
+		} finally {
 			setLoading(false);
 		}
 	};
@@ -78,7 +95,6 @@ const SignUp = () => {
 				className="absolute inset-x-0 top-[-10rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]"
 				aria-hidden="true"
 			>
-				{/* bg gradient */}
 				<div
 					className="relative left-1/2 -z-10 aspect-[1155/678] w-[36.125rem] max-w-none -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-40rem)] sm:w-[72.1875rem]"
 					style={{
@@ -88,7 +104,6 @@ const SignUp = () => {
 				></div>
 			</div>
 
-			{/* title */}
 			<div className="mx-auto max-w-2xl text-center">
 				<h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
 					Sign Up
@@ -99,28 +114,29 @@ const SignUp = () => {
 			</div>
 
 			<div className="bg-white xl:w-3/5 w-full mx-auto p-4 shadow-lg rounded-tr-[3rem] rounded-bl-[3rem] mt-2">
-				{/* form start */}
 				<form onSubmit={handleSubmit} className="grid grid-cols-1 gap-y-6 p-6">
 					<div className="grid grid-cols-2 gap-8">
 						<div className="w-full flex flex-col gap-2">
-							<Label htmlFor="Fname">First Name</Label>
+							<Label htmlFor="fname">First Name</Label>
 							<Input
 								type="text"
-								id="Fname"
+								id="fname"
+								name="fname"
 								placeholder="Enter your firstname"
-								value={fname}
-								onChange={(e) => setFname(e.target.value)}
+								value={formData.fname}
+								onChange={handleInputChange}
 							/>
 						</div>
 
 						<div className="w-full flex flex-col gap-2">
-							<Label htmlFor="Lname">Last Name</Label>
+							<Label htmlFor="lname">Last Name</Label>
 							<Input
 								type="text"
-								id="Lname"
+								id="lname"
+								name="lname"
 								placeholder="Enter your lastname"
-								value={lname}
-								onChange={(e) => setLname(e.target.value)}
+								value={formData.lname}
+								onChange={handleInputChange}
 							/>
 						</div>
 					</div>
@@ -131,23 +147,25 @@ const SignUp = () => {
 							<Input
 								type="text"
 								id="email"
+								name="email"
 								placeholder="Enter your email"
-								value={email}
-								onChange={(e) => setEmail(e.target.value)}
+								value={formData.email}
+								onChange={handleInputChange}
 							/>
-							{email.length > 0 && errors.email && (
+							{errors.email && (
 								<p className="text-sm text-red-600">{errors.email}</p>
 							)}
 						</div>
 
 						<div className="w-full flex flex-col gap-2">
-							<Label htmlFor="Phone">Phone</Label>
+							<Label htmlFor="phone">Phone</Label>
 							<Input
 								type="text"
-								id="Phone"
+								id="phone"
+								name="phone"
 								placeholder="Enter your number"
-								value={phone}
-								onChange={(e) => setPhone(e.target.value)}
+								value={formData.phone}
+								onChange={handleInputChange}
 							/>
 						</div>
 					</div>
@@ -157,93 +175,43 @@ const SignUp = () => {
 						<Input
 							type="password"
 							id="password"
+							name="password"
 							placeholder="Enter your password"
-							value={password}
-							onChange={(e) => setPassword(e.target.value)}
+							value={formData.password}
+							onChange={handleInputChange}
 						/>
-						{password.length > 0 && errors.password && (
+						{errors.password && (
 							<p className="text-sm text-red-600">{errors.password}</p>
 						)}
 					</div>
 
 					<div className="grid w-full gap-2">
-						<Label htmlFor="confirm-password">Confirm Password</Label>
+						<Label htmlFor="confirmPassword">Confirm Password</Label>
 						<Input
 							type="password"
-							id="confirm-password"
+							id="confirmPassword"
+							name="confirmPassword"
 							placeholder="Confirm your password"
-							value={confirmPassword}
-							onChange={(e) => setConfirmPassword(e.target.value)}
+							value={formData.confirmPassword}
+							onChange={handleInputChange}
 						/>
-						{confirmPassword.length > 0 && errors.confirmPassword && (
+						{errors.confirmPassword && (
 							<p className="text-sm text-red-600">{errors.confirmPassword}</p>
 						)}
 					</div>
 
-					<div className="grid grid-cols-3 w-full gap-8">
-						<div>
-							<Label htmlFor="day">Day</Label>
-							<Select onValueChange={(value) => setDay(value)}>
-								<SelectTrigger className="w-full">
-									<SelectValue placeholder="Select a day" />
-								</SelectTrigger>
-								<SelectContent>
-									<SelectGroup>
-										<SelectLabel>Select a day</SelectLabel>
-										{Array.from({ length: 31 }, (_, i) => (
-											<SelectItem key={i + 1} value={(i + 1).toString()}>
-												{i + 1}
-											</SelectItem>
-										))}
-									</SelectGroup>
-								</SelectContent>
-							</Select>
-						</div>
-
-						<div>
-							<Label htmlFor="month">Month</Label>
-							<Select onValueChange={(value) => setMonth(value)}>
-								<SelectTrigger className="w-full">
-									<SelectValue placeholder="Select a month" />
-								</SelectTrigger>
-								<SelectContent>
-									<SelectGroup>
-										<SelectLabel>Select a month</SelectLabel>
-										{Array.from({ length: 12 }, (_, i) => (
-											<SelectItem key={i + 1} value={(i + 1).toString()}>
-												{i + 1}
-											</SelectItem>
-										))}
-									</SelectGroup>
-								</SelectContent>
-							</Select>
-						</div>
-
-						<div>
-							<Label htmlFor="year">Year</Label>
-							<Select onValueChange={(value) => setYear(value)}>
-								<SelectTrigger className="w-full">
-									<SelectValue placeholder="Select a year" />
-								</SelectTrigger>
-								<SelectContent>
-									<SelectGroup>
-										<SelectLabel>Select a year</SelectLabel>
-										{Array.from(
-											{ length: new Date().getFullYear() - 1900 + 1 },
-											(_, i) => (
-												<SelectItem
-													key={new Date().getFullYear() - i}
-													value={(new Date().getFullYear() - i).toString()}
-												>
-													{new Date().getFullYear() - i}
-												</SelectItem>
-											)
-										)}
-									</SelectGroup>
-								</SelectContent>
-							</Select>
-						</div>
-					</div>
+					<DateOfBirthSelector
+						day={formData.day}
+						month={formData.month}
+						year={formData.year}
+						setDay={(value) => setFormData((prev) => ({ ...prev, day: value }))}
+						setMonth={(value) =>
+							setFormData((prev) => ({ ...prev, month: value }))
+						}
+						setYear={(value) =>
+							setFormData((prev) => ({ ...prev, year: value }))
+						}
+					/>
 
 					<div>
 						<Button type="submit" className="w-full">
@@ -253,6 +221,7 @@ const SignUp = () => {
 					</div>
 				</form>
 			</div>
+			<CustomToastContainer />
 		</main>
 	);
 };
