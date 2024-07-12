@@ -3,32 +3,13 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import login from "@/api/login";
 import { useNavigate } from "react-router-dom";
 
 const SignIn = () => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
-	const [error, setError] = useState("");
-	const [loading, setLoading] = useState(false);
-	const navigate = useNavigate();
-
-	const handleSubmit = async (e) => {
-		e.preventDefault();
-		setLoading(true);
-		setError("");
-
-		try {
-			const data = await login(email, password);
-			console.log("User signed in:", data);
-			// จัดการการ signin สำเร็จ เช่น บันทึก token, เปลี่ยนหน้า
-			localStorage.setItem("token", data.token);
-			navigate("/");
-		} catch (err) {
-			setError(err.message);
-		} finally {
-			setLoading(false);
-		}
+	const handleSubmit = () => {
+		console.log(`${email},${password}`);
 	};
 
 	return (
