@@ -10,8 +10,10 @@ import router from "./router";
 
 // context
 import { CartProvider } from "./context/CartContext";
-import { AuthProvider } from "./context/AuthContext";
+import AuthProvider from "react-auth-kit/AuthProvider";
+import RequireAuth from "@auth-kit/react-router/RequireAuth";
 
+// notification
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 

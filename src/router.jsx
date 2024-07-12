@@ -14,7 +14,7 @@ import WishList from "./pages/account/components/WishList";
 import SignIn from "./pages/auth/SignIn";
 import SignUp from "./pages/auth/SignUp";
 import Cart from "./pages/payment/cart/Cart";
-import PrivateRoute from "./components/PrivateRoute";
+import ProtectedRoutes from "./utils/ProtectRoutes";
 
 const router = createBrowserRouter([
 	{
@@ -35,13 +35,7 @@ const router = createBrowserRouter([
 			},
 			{
 				path: "/cart",
-				element: <PrivateRoute />,
-				children: [
-					{
-						path: "",
-						element: <Cart />,
-					},
-				],
+				element: <ProtectedRoutes />,
 			},
 			{
 				path: "/horoscope",
@@ -64,8 +58,8 @@ const router = createBrowserRouter([
 				element: <SignUp />,
 			},
 			{
-				path: "account",
-				element: <PrivateRoute />,
+				path: "/account",
+				element: <ProtectedRoutes />,
 				children: [
 					{
 						path: "",

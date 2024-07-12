@@ -6,7 +6,6 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import CustomToastContainer from "@/pages/auth/ToastContainer.jsx";
 import "react-toastify/dist/ReactToastify.css";
 import DateOfBirthSelector from "../auth/DateOfBirthSelector";
 
@@ -221,7 +220,6 @@ const SignUp = () => {
 					</div>
 				</form>
 			</div>
-			<CustomToastContainer />
 		</main>
 	);
 };

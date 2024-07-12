@@ -1,43 +1,63 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import login from "@/api/login";
+import axios from "axios";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom"; // Ensure this line is here
-import { toast } from "react-toastify"; // Import toast
-
+import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useSignIn } from "react-auth-kit";
+import { AxiosError } from "axios";
+import { useFormik } from "formik";
 
 const SignIn = () => {
-	const [email, setEmail] = useState("");
-	const [password, setPassword] = useState("");
-	const [error, setError] = useState("");
 	const [loading, setLoading] = useState(false);
+	const [error, setError] = useState("");
 	const navigate = useNavigate();
+	const signIn = useSignIn();
 
-	const handleSubmit = async (e) => {
-		e.preventDefault();
+	const onSubmit = async (values) => {
 		setLoading(true);
 		setError("");
 
 		try {
-			const data = await login(email, password);
-			console.log("User signed in:", data);
-			// Save token to localStorage
-			localStorage.setItem("token", data.token);
-			toast.success("ลงชื่อเข้าใช้สำเร็จ"); // Display success toast
+			const response = await axios.post(
+				"https://mutayloo.vercel.app/users/login",
+				values
+			);
+
+			signIn({
+				token: response.data.token,
+				expiresIn: 1800,
+				tokenType: "Bearer",
+				authState: { email: values.email },
+			});
+
+			toast.success("ลงชื่อเข้าใช้สำเร็จ");
 
 			setTimeout(() => {
 				navigate("/");
-			}, 1500); // Delay navigation after login
+			}, 1500);
 		} catch (err) {
-			setError(err.message);
-			toast.error("มีข้อผิดพลาดในการลงชื่อเข้าใช้"); // Display error toast
+			if (err && err instanceof AxiosError) {
+				setError(err.response?.data.message);
+			} else if (err && err instanceof Error) {
+				setError(err.message);
+			}
 		} finally {
 			setLoading(false);
 		}
 	};
+
+	const formik = useFormik({
+		initialValues: {
+			email: "",
+			password: "",
+		},
+		onSubmit,
+	});
+
 	return (
 		<main className="isolate bg-white px-6 py-24 sm:py-32 lg:px-8">
 			<div
@@ -63,7 +83,10 @@ const SignIn = () => {
 					</p>
 				</div>
 
-				<form className="grid grid-cols-1 gap-y-6 py-6" onSubmit={handleSubmit}>
+				<form
+					className="grid grid-cols-1 gap-y-6 py-6"
+					onSubmit={formik.handleSubmit}
+				>
 					<div className="grid w-full max-w-sm items-center gap-2">
 						<Label
 							htmlFor="email"
@@ -75,8 +98,7 @@ const SignIn = () => {
 							type="text"
 							id="email"
 							placeholder="Email"
-							value={email}
-							onChange={(e) => setEmail(e.target.value)}
+							{...formik.getFieldProps("email")}
 						/>
 					</div>
 
@@ -91,8 +113,7 @@ const SignIn = () => {
 							type="password"
 							id="password"
 							placeholder="Password"
-							value={password}
-							onChange={(e) => setPassword(e.target.value)}
+							{...formik.getFieldProps("password")}
 						/>
 					</div>
 
