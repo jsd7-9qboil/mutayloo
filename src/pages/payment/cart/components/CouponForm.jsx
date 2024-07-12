@@ -2,7 +2,7 @@ import React from "react";
 
 const CouponForm = () => {
   return (
-    <div className="p-4 border-t">
+    <div className="p-4 mr-8">
       <p>Have a coupon?</p>
       <input
         type="text"

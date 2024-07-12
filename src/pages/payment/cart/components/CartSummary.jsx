@@ -2,7 +2,7 @@ import React from "react";
 
 const CartSummary = ({ subtotal, shipping, discount, total }) => {
   return (
-    <div className="p-4 border-t">
+    <div className="p-4 border-t mr-8 lg:w-3/5 ">
       <div className="flex justify-between">
         <p>ราคาสุทธิ</p>
         <p>${subtotal}</p>
