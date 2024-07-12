@@ -1,43 +1,33 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import login from "@/api/login";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom"; // Ensure this line is here
-import { toast } from "react-toastify"; // Import toast
-
-import "react-toastify/dist/ReactToastify.css";
+import { Link } from "react-router-dom";
+import { login } from "@/api/login"; // Corrected import
 
 const SignIn = () => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
-	const [error, setError] = useState("");
+	const [error, setError] = useState(null);
 	const [loading, setLoading] = useState(false);
 	const navigate = useNavigate();
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		setLoading(true);
-		setError("");
+		setError(null);
 
 		try {
-			const data = await login(email, password);
-			console.log("User signed in:", data);
-			// Save token to localStorage
-			localStorage.setItem("token", data.token);
-			toast.success("ลงชื่อเข้าใช้สำเร็จ"); // Display success toast
-
-			setTimeout(() => {
-				navigate("/");
-			}, 1500); // Delay navigation after login
+			await login(email, password);
+			navigate("/"); // Redirect to dashboard or another page after successful login
 		} catch (err) {
-			setError(err.message);
-			toast.error("มีข้อผิดพลาดในการลงชื่อเข้าใช้"); // Display error toast
+			setError("Login failed. Please check your credentials and try again.");
 		} finally {
 			setLoading(false);
 		}
 	};
+
 	return (
 		<main className="isolate bg-white px-6 py-24 sm:py-32 lg:px-8">
 			<div
