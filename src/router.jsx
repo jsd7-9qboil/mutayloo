@@ -1,7 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-// layout
 import Layout from "./pages/Layout";
-// pages
 import Home from "./pages/home/Home";
 import ProductsList from "./pages/products-archive/ProductsList";
 import ProductDetail from "./pages/products-archive/ProductDetail";
@@ -16,85 +14,85 @@ import WishList from "./pages/account/components/WishList";
 import SignIn from "./pages/auth/SignIn";
 import SignUp from "./pages/auth/SignUp";
 import Cart from "./pages/payment/cart/Cart";
+import PrivateRoute from "./components/PrivateRoute";
 
 const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Layout />,
-    children: [
-      // home
-      {
-        path: "",
-        element: <Home />,
-      },
-
-      // products
-      {
-        path: "/products",
-        element: <ProductsList />,
-      },
-      {
-        path: "/product/:id",
-        element: <ProductDetail />,
-      },
-
-      // cart
-      {
-        path: "/cart",
-        element: <Cart />,
-      },
-
-      // horoscope
-      {
-        path: "/horoscope",
-        element: <Horoscope />,
-      },
-      {
-        path: "/horoscope/:id",
-        element: <HoroscopeDetail />,
-      },
-
-      // contact us
-      {
-        path: "/contact-us",
-        element: <ContactUs />,
-      },
-
-      // sign-in, sign-up
-      {
-        path: "/sign-in",
-        element: <SignIn />,
-      },
-      {
-        path: "/sign-up",
-        element: <SignUp />,
-      },
-
-      // account
-      {
-        path: "account",
-        element: <Account />,
-        children: [
-          {
-            path: "",
-            element: <MyAccount />,
-          },
-          {
-            path: "address",
-            element: <Address />,
-          },
-          {
-            path: "orders",
-            element: <Order />,
-          },
-          {
-            path: "wishlist",
-            element: <WishList />,
-          },
-        ],
-      },
-    ],
-  },
+	{
+		path: "/",
+		element: <Layout />,
+		children: [
+			{
+				path: "",
+				element: <Home />,
+			},
+			{
+				path: "/products",
+				element: <ProductsList />,
+			},
+			{
+				path: "/product/:id",
+				element: <ProductDetail />,
+			},
+			{
+				path: "/cart",
+				element: <PrivateRoute />,
+				children: [
+					{
+						path: "",
+						element: <Cart />,
+					},
+				],
+			},
+			{
+				path: "/horoscope",
+				element: <Horoscope />,
+			},
+			{
+				path: "/horoscope/:id",
+				element: <HoroscopeDetail />,
+			},
+			{
+				path: "/contact-us",
+				element: <ContactUs />,
+			},
+			{
+				path: "/sign-in",
+				element: <SignIn />,
+			},
+			{
+				path: "/sign-up",
+				element: <SignUp />,
+			},
+			{
+				path: "account",
+				element: <PrivateRoute />,
+				children: [
+					{
+						path: "",
+						element: <Account />,
+						children: [
+							{
+								path: "",
+								element: <MyAccount />,
+							},
+							{
+								path: "address",
+								element: <Address />,
+							},
+							{
+								path: "orders",
+								element: <Order />,
+							},
+							{
+								path: "wishlist",
+								element: <WishList />,
+							},
+						],
+					},
+				],
+			},
+		],
+	},
 ]);
 
 export default router;

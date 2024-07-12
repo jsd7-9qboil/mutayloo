@@ -1,208 +1,229 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { validateEmail, validatePassword } from "@/lib/validation";
-// components
+import register from "@/api/register";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import CustomToastContainer from "@/pages/auth/ToastContainer.jsx";
+import "react-toastify/dist/ReactToastify.css";
+import DateOfBirthSelector from "../auth/DateOfBirthSelector";
 
 const SignUp = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [errors, setErrors] = useState({});
+	const [formData, setFormData] = useState({
+		fname: "",
+		lname: "",
+		email: "",
+		phone: "",
+		password: "",
+		confirmPassword: "",
+		day: "",
+		month: "",
+		year: "",
+	});
 
-  // validate
-  useEffect(() => {
-    const newErrors = {};
-    if (email.length > 0 && !validateEmail(email)) {
-      newErrors.email = "Invalid email address";
-    }
-    if (password.length > 0 && !validatePassword(password)) {
-      newErrors.password =
-        "Password must be at least 8 characters long and include at least one uppercase letter and one number";
-    }
-    if (confirmPassword.length > 0 && password !== confirmPassword) {
-      newErrors.confirmPassword = "Passwords do not match";
-    }
-    setErrors(newErrors);
-  }, [email, password, confirmPassword]);
+	const [errors, setErrors] = useState({});
+	const [loading, setLoading] = useState(false);
+	const [error, setError] = useState("");
 
-  // handleSubmit form
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (Object.keys(errors).length === 0) {
-      console.log("Form submitted");
-      // ส่งข้อมูลฟอร์ม
-    }
-  };
+	const navigate = useNavigate();
 
-  return (
-    <main className="isolate bg-white px-6 py-24 sm:py-32 lg:px-8">
-      <div
-        className="absolute inset-x-0 top-[-10rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]"
-        aria-hidden="true"
-      >
-        {/* bg gradient */}
-        <div
-          className="relative left-1/2 -z-10 aspect-[1155/678] w-[36.125rem] max-w-none -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-40rem)] sm:w-[72.1875rem]"
-          style={{
-            clipPath:
-              "polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)",
-          }}
-        ></div>
-      </div>
+	const handleInputChange = useCallback((e) => {
+		const { name, value } = e.target;
+		setFormData((prev) => ({ ...prev, [name]: value }));
+		setErrors((prev) => ({ ...prev, [name]: "" }));
+	}, []);
 
-      {/* title */}
-      <div className="mx-auto max-w-2xl text-center">
-        <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-          Sign Up
-        </h2>
-        <p className="mt-2 text-lg leading-8 text-gray-600">
-          ลงทะเบียนวันนี้เพื่อเปลี่ยนโชคชะตาของคุณ
-        </p>
-      </div>
+	const validateForm = useCallback(() => {
+		const newErrors = {};
+		if (formData.email && !validateEmail(formData.email)) {
+			newErrors.email = "Invalid email address";
+		}
+		if (formData.password && !validatePassword(formData.password)) {
+			newErrors.password =
+				"Password must be at least 8 characters long and include at least one uppercase letter and one number";
+		}
+		if (
+			formData.confirmPassword &&
+			formData.password !== formData.confirmPassword
+		) {
+			newErrors.confirmPassword = "Passwords do not match";
+		}
+		setErrors(newErrors);
+		return Object.keys(newErrors).length === 0;
+	}, [formData]);
 
-      <div className="bg-white xl:w-3/5 w-full mx-auto p-4 shadow-lg rounded-tr-[3rem] rounded-bl-[3rem] mt-2">
-        {/* form start */}
-        <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-y-6 p-6">
-          <div className="grid grid-cols-2 gap-8">
-            <div className="w-full flex flex-col gap-2">
-              <Label htmlFor="Fname">First Name</Label>
-              <Input
-                type="text"
-                id="Fname"
-                placeholder="Enter your firstname"
-              />
-            </div>
+	useEffect(() => {
+		const timer = setTimeout(validateForm, 300);
+		return () => clearTimeout(timer);
+	}, [formData, validateForm]);
 
-            <div className="w-full flex flex-col gap-2">
-              <Label htmlFor="Lname">Last Name</Label>
-              <Input type="text" id="Lname" placeholder="Enter your lastname" />
-            </div>
-          </div>
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		if (!validateForm()) return;
 
-          <div className="grid grid-cols-2 gap-8">
-            <div className="w-full flex flex-col gap-2">
-              <Label htmlFor="email">Email</Label>
-              <Input
-                type="text"
-                id="email"
-                placeholder="Enter your email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-              {email.length > 0 && errors.email && (
-                <p className="text-sm text-red-600">{errors.email}</p>
-              )}
-            </div>
+		setLoading(true);
+		setError("");
 
-            <div className="w-full flex flex-col gap-2">
-              <Label htmlFor="Phone">Phone</Label>
-              <Input type="text" id="Phone" placeholder="Enter your number" />
-            </div>
-          </div>
+		const dob = new Date(`${formData.year}-${formData.month}-${formData.day}`);
+		try {
+			const data = await register(
+				formData.fname,
+				formData.lname,
+				formData.email,
+				formData.password,
+				dob
+			);
+			console.log("Form submitted", data);
 
-          <div className="grid w-full gap-2">
-            <Label htmlFor="password">Password</Label>
-            <Input
-              type="password"
-              id="password"
-              placeholder="Enter your password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            {password.length > 0 && errors.password && (
-              <p className="text-sm text-red-600">{errors.password}</p>
-            )}
-          </div>
+			localStorage.setItem("token", data.token);
+			toast.success("ลงทะเบียนสำเร็จแล้ว");
+			setTimeout(() => {
+				navigate("/account");
+			}, 1500);
+		} catch (err) {
+			setError(err.message);
+		} finally {
+			setLoading(false);
+		}
+	};
 
-          <div className="grid w-full gap-2">
-            <Label htmlFor="confirm-password">Confirm Password</Label>
-            <Input
-              type="password"
-              id="confirm-password"
-              placeholder="Confirm your password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-            />
-            {confirmPassword.length > 0 && errors.confirmPassword && (
-              <p className="text-sm text-red-600">{errors.confirmPassword}</p>
-            )}
-          </div>
+	return (
+		<main className="isolate bg-white px-6 py-24 sm:py-32 lg:px-8">
+			<div
+				className="absolute inset-x-0 top-[-10rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]"
+				aria-hidden="true"
+			>
+				<div
+					className="relative left-1/2 -z-10 aspect-[1155/678] w-[36.125rem] max-w-none -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-40rem)] sm:w-[72.1875rem]"
+					style={{
+						clipPath:
+							"polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)",
+					}}
+				></div>
+			</div>
 
-          <div className="grid grid-cols-3 w-full gap-8">
-            <div>
-              <Label htmlFor="">Birthday</Label>
-              <Select>
-                <SelectTrigger className="w-full">
-                  <SelectValue placeholder="Select a date" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectGroup>
-                    <SelectLabel>Select a date</SelectLabel>
-                    <SelectItem value="apple">1</SelectItem>
-                    <SelectItem value="banana">2</SelectItem>
-                    <SelectItem value="blueberry">3</SelectItem>
-                    <SelectItem value="grapes">4</SelectItem>
-                    <SelectItem value="pineapple">5</SelectItem>
-                  </SelectGroup>
-                </SelectContent>
-              </Select>
-            </div>
+			<div className="mx-auto max-w-2xl text-center">
+				<h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+					Sign Up
+				</h2>
+				<p className="mt-2 text-lg leading-8 text-gray-600">
+					ลงทะเบียนวันนี้เพื่อเปลี่ยนโชคชะตาของคุณ
+				</p>
+			</div>
 
-            <div>
-              <Label htmlFor="">Birthday</Label>
-              <Select>
-                <SelectTrigger className="w-full">
-                  <SelectValue placeholder="Select a month" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectGroup>
-                    <SelectLabel>Select a month</SelectLabel>
-                    <SelectItem value="apple">1</SelectItem>
-                    <SelectItem value="banana">2</SelectItem>
-                    <SelectItem value="blueberry">3</SelectItem>
-                    <SelectItem value="grapes">4</SelectItem>
-                    <SelectItem value="pineapple">5</SelectItem>
-                  </SelectGroup>
-                </SelectContent>
-              </Select>
-            </div>
-            
-            <div>
-              <Label htmlFor="">Birthday</Label>
-              <Select>
-                <SelectTrigger className="w-full">
-                  <SelectValue placeholder="Select a year" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectGroup>
-                    <SelectLabel>Select a year</SelectLabel>
-                    <SelectItem value="apple">1</SelectItem>
-                    <SelectItem value="banana">2</SelectItem>
-                    <SelectItem value="blueberry">3</SelectItem>
-                    <SelectItem value="grapes">4</SelectItem>
-                    <SelectItem value="pineapple">5</SelectItem>
-                  </SelectGroup>
-                </SelectContent>
-              </Select>
-            </div>
-          </div>
+			<div className="bg-white xl:w-3/5 w-full mx-auto p-4 shadow-lg rounded-tr-[3rem] rounded-bl-[3rem] mt-2">
+				<form onSubmit={handleSubmit} className="grid grid-cols-1 gap-y-6 p-6">
+					<div className="grid grid-cols-2 gap-8">
+						<div className="w-full flex flex-col gap-2">
+							<Label htmlFor="fname">First Name</Label>
+							<Input
+								type="text"
+								id="fname"
+								name="fname"
+								placeholder="Enter your firstname"
+								value={formData.fname}
+								onChange={handleInputChange}
+							/>
+						</div>
 
-          <Button type="submit">Sign Up</Button>
-        </form>
-      </div>
-    </main>
-  );
+						<div className="w-full flex flex-col gap-2">
+							<Label htmlFor="lname">Last Name</Label>
+							<Input
+								type="text"
+								id="lname"
+								name="lname"
+								placeholder="Enter your lastname"
+								value={formData.lname}
+								onChange={handleInputChange}
+							/>
+						</div>
+					</div>
+
+					<div className="grid grid-cols-2 gap-8">
+						<div className="w-full flex flex-col gap-2">
+							<Label htmlFor="email">Email</Label>
+							<Input
+								type="text"
+								id="email"
+								name="email"
+								placeholder="Enter your email"
+								value={formData.email}
+								onChange={handleInputChange}
+							/>
+							{errors.email && (
+								<p className="text-sm text-red-600">{errors.email}</p>
+							)}
+						</div>
+
+						<div className="w-full flex flex-col gap-2">
+							<Label htmlFor="phone">Phone</Label>
+							<Input
+								type="text"
+								id="phone"
+								name="phone"
+								placeholder="Enter your number"
+								value={formData.phone}
+								onChange={handleInputChange}
+							/>
+						</div>
+					</div>
+
+					<div className="grid w-full gap-2">
+						<Label htmlFor="password">Password</Label>
+						<Input
+							type="password"
+							id="password"
+							name="password"
+							placeholder="Enter your password"
+							value={formData.password}
+							onChange={handleInputChange}
+						/>
+						{errors.password && (
+							<p className="text-sm text-red-600">{errors.password}</p>
+						)}
+					</div>
+
+					<div className="grid w-full gap-2">
+						<Label htmlFor="confirmPassword">Confirm Password</Label>
+						<Input
+							type="password"
+							id="confirmPassword"
+							name="confirmPassword"
+							placeholder="Confirm your password"
+							value={formData.confirmPassword}
+							onChange={handleInputChange}
+						/>
+						{errors.confirmPassword && (
+							<p className="text-sm text-red-600">{errors.confirmPassword}</p>
+						)}
+					</div>
+
+					<DateOfBirthSelector
+						day={formData.day}
+						month={formData.month}
+						year={formData.year}
+						setDay={(value) => setFormData((prev) => ({ ...prev, day: value }))}
+						setMonth={(value) =>
+							setFormData((prev) => ({ ...prev, month: value }))
+						}
+						setYear={(value) =>
+							setFormData((prev) => ({ ...prev, year: value }))
+						}
+					/>
+
+					<div>
+						<Button type="submit" className="w-full">
+							{loading ? "Loading..." : "Sign Up"}
+						</Button>
+						{error && <p className="text-sm text-red-600">{error}</p>}
+					</div>
+				</form>
+			</div>
+			<CustomToastContainer />
+		</main>
+	);
 };
 
 export default SignUp;
