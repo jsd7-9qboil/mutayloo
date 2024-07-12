@@ -214,21 +214,21 @@ const Checkout = () => {
         </div>
         <div className="lg:w-2/5 w-full md:w-full  justify-center items-center">
           <div className="md:w-full">
-            <div className="flex flex-col px-6 py-4 bg-white rounded-md border border-solid border-zinc-500 max-w-[509px] max-md:px-5">
-              <div className="text-3xl font-medium tracking-tight leading-8 text-neutral-900 max-md:max-w-full">
+            <div className="flex flex-col md:w-full px-6 py-4 bg-white rounded-md border border-solid border-zinc-500  max-md:px-5">
+              <div className="text-3xl font-medium tracking-tight leading-8 text-neutral-900 max-md:max-w-full md:pb-8 lg:pb-8">
                 Order summary
               </div>
-              <div className="flex flex-col justify-center py-2  border-b border-gray-200 border-solid max-md:max-w-full">
+              <div className="flex flex-col justify-center py-2  border-b border-gray-200 border-solid max-md:max-w-full md:justify-center items-center">
                 <div className="flex gap-4 max-md:flex-wrap max-md:max-w-full">
                   <div className="flex flex-col justify-center">
                     <div className="shrink-0 h-24 bg-purple-600" />
                   </div>
                   <div className="flex pb-1.5 gap-8">
-                    <div>
+                    <div className="md:justify-start md:items-start">
                       <div className="flex flex-col justify-center items-start py-1.5 mt-2 rounded  max-md:pr-5">
                         <img
                           src="https://via.placeholder.com/80x96"
-                          className="w-4/5 h-full aspect-[3.23]"
+                          className="w-full h-full aspect-[3.23] md:pr-12"
                         />
                       </div>
                     </div>
@@ -253,7 +253,7 @@ const Checkout = () => {
                   </div>
                 </div>
               </div>
-              <div className="flex flex-col justify-center py-2  border-b border-gray-200 border-solid max-md:max-w-full">
+              <div className="flex flex-col justify-center items-center py-2  border-b border-gray-200 border-solid max-md:max-w-full">
                 <div className="flex gap-4 max-md:flex-wrap max-md:max-w-full">
                   <div className="flex flex-col justify-center">
                     <div className="shrink-0 h-24 bg-purple-600" />
@@ -263,7 +263,7 @@ const Checkout = () => {
                       <div className="flex flex-col justify-center items-start py-1.5 mt-2 rounded  max-md:pr-5">
                         <img
                           src="https://via.placeholder.com/80x96"
-                          className="w-4/5 h-full aspect-[3.23]"
+                          className="w-full h-full aspect-[3.23] md:pr-12"
                         />
                       </div>
                     </div>
@@ -288,7 +288,7 @@ const Checkout = () => {
                   </div>
                 </div>
               </div>
-              <div className="flex flex-col justify-center py-2  border-b border-gray-200 border-solid max-md:max-w-full">
+              <div className="flex flex-col justify-center items-center py-2  border-b border-gray-200 border-solid max-md:max-w-full">
                 <div className="flex gap-4 max-md:flex-wrap max-md:max-w-full">
                   <div className="flex flex-col justify-center">
                     <div className="shrink-0 h-24 bg-purple-600" />
@@ -298,7 +298,7 @@ const Checkout = () => {
                       <div className="flex flex-col justify-center items-start py-1.5 mt-2 rounded  max-md:pr-5">
                         <img
                           src="https://via.placeholder.com/80x200"
-                          className="w-4/5 h-full aspect-[3.23]"
+                          className="w-full h-full aspect-[3.23] md:pr-12"
                         />
                       </div>
                     </div>
@@ -361,7 +361,7 @@ const Checkout = () => {
             </div>
           </div>
           <div className="md:w-full">
-            <div className="flex flex-col px-6 py-10 rounded border border-solid border-zinc-500 max-w-[509px] max-md:px-5">
+            <div className="flex flex-col px-6 py-10 rounded border border-solid border-zinc-500  max-md:px-5">
               <div className="text-xl font-medium leading-7 text-neutral-900 max-md:max-w-full">
                 Payment method
               </div>
