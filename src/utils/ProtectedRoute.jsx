@@ -8,7 +8,7 @@ const ProtectedRoute = ({ children }) => {
 	console.log(user);
 
 	if (!token || !user) {
-		return <Navigate to="/" />;
+		return <Navigate to="/sign-in" />;
 	}
 
 	return children;

@@ -5,6 +5,9 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { login as apiLogin } from "@/api/authApi";
+import { toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const SignIn = () => {
 	const [email, setEmail] = useState("");
@@ -23,16 +26,18 @@ const SignIn = () => {
 			localStorage.setItem("token", response.data.token);
 			localStorage.setItem("user", JSON.stringify(response.data.user));
 			if (response.data.user) {
+				toast.success("ลงชื่อเข้าใช้สำเร็จ !!");
 				navigate("/");
 			} else {
 				setError("Access denied.");
 			}
 		} catch (err) {
 			setError("Invalid credentials");
+			toast.error("Invalid credentials");
+		} finally {
+			setLoading(false);
 		}
 	};
-
-	
 
 	return (
 		<main className="isolate bg-white px-6 py-24 sm:py-32 lg:px-8">

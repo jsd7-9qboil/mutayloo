@@ -75,7 +75,7 @@ const SignUp = () => {
 			console.log("Form submitted", data);
 
 			localStorage.setItem("token", data.token);
-			toast.success("ลงทะเบียนสำเร็จแล้ว");
+
 			setTimeout(() => {
 				navigate("/account");
 			}, 1500);
@@ -218,7 +218,6 @@ const SignUp = () => {
 					</div>
 				</form>
 			</div>
-			<CustomToastContainer />
 		</main>
 	);
 };
