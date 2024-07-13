@@ -4,8 +4,11 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
-
 import DateOfBirthSelector from "../auth/DateOfBirthSelector";
+import { registerProfile } from "@/api/authApi"; // Import the registerProfile function
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import "@/utils/custom-toast.css";
 
 const SignUp = () => {
 	const [formData, setFormData] = useState({
@@ -58,29 +61,32 @@ const SignUp = () => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		if (!validateForm()) return;
-
+		if (!validateForm()) {
+			toast.error("Please fill in all required fields correctly.");
+			return;
+		}
 		setLoading(true);
 		setError("");
-
 		const dob = new Date(`${formData.year}-${formData.month}-${formData.day}`);
 		try {
-			const data = await register(
-				formData.fname,
-				formData.lname,
-				formData.email,
-				formData.password,
-				dob
-			);
-			console.log("Form submitted", data);
-
-			localStorage.setItem("token", data.token);
-
+			const response = await registerProfile({
+				fname: formData.fname,
+				lname: formData.lname,
+				email: formData.email,
+				password: formData.password,
+				dob: dob.toISOString().split("T")[0],
+				phone: formData.phone,
+			});
+			console.log("Registration successful", response.data);
+			localStorage.setItem("token", response.data.token);
+			toast.success("Registration successful!");
 			setTimeout(() => {
 				navigate("/account");
 			}, 1500);
 		} catch (err) {
-			setError(err.message);
+			const errorMessage = err.response?.data?.message || "Registration failed";
+			toast.error(errorMessage);
+			setError(errorMessage);
 		} finally {
 			setLoading(false);
 		}
@@ -88,6 +94,17 @@ const SignUp = () => {
 
 	return (
 		<main className="isolate bg-white px-6 py-24 sm:py-32 lg:px-8">
+			<ToastContainer
+				position="top-left"
+				autoClose={3000}
+				hideProgressBar={false}
+				newestOnTop={false}
+				closeOnClick
+				rtl={false}
+				pauseOnFocusLoss
+				draggable
+				pauseOnHover
+			/>
 			<div
 				className="absolute inset-x-0 top-[-10rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]"
 				aria-hidden="true"

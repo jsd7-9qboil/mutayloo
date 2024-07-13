@@ -14,3 +14,8 @@ export const editProfile = async () => {
 export const updateProfile = async (userData) => {
 	return apiClient.patch("/users/profile", userData);
 };
+
+// Register
+export const registerProfile = async (userData) => {
+	return apiClient.post("/users/register", userData);
+};
