@@ -1,14 +1,16 @@
 import apiClient from "./apiClient";
 
-//Login
+// Login
 export const login = async (email, password) => {
-	return apiClient.post("/users/login", {
-		email,
-		password,
-	});
+	return apiClient.post("/users/login", { email, password });
 };
 
-// get users profile
-export const fetchUsers = async () => {
-	return apiClient.get("/profile");
+// Get user profile
+export const editProfile = async () => {
+	return apiClient.get("/users/profile");
+};
+
+// Update user profile
+export const updateProfile = async (userData) => {
+	return apiClient.patch("/users/profile", userData);
 };

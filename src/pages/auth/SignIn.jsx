@@ -1,13 +1,12 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { login as apiLogin } from "@/api/authApi";
 import { toast } from "react-toastify";
-import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { login } from "@/api/authApi";
 
 const SignIn = () => {
 	const [email, setEmail] = useState("");
@@ -21,7 +20,7 @@ const SignIn = () => {
 		setLoading(true);
 		setError(null);
 		try {
-			const response = await apiLogin(email, password);
+			const response = await login(email, password);
 
 			localStorage.setItem("token", response.data.token);
 			localStorage.setItem("user", JSON.stringify(response.data.user));
