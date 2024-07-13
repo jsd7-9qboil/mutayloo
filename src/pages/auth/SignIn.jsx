@@ -1,32 +1,38 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { login } from "@/api/login"; // Corrected import
+import { login as apiLogin } from "@/api/authApi";
 
 const SignIn = () => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
-	const [error, setError] = useState(null);
 	const [loading, setLoading] = useState(false);
+	const [error, setError] = useState(null);
 	const navigate = useNavigate();
 
-	const handleSubmit = async (e) => {
+	const handleLogin = async (e) => {
 		e.preventDefault();
 		setLoading(true);
 		setError(null);
-
 		try {
-			await login(email, password);
-			navigate("/"); // Redirect to dashboard or another page after successful login
+			const response = await apiLogin(email, password);
+
+			localStorage.setItem("token", response.data.token);
+			localStorage.setItem("user", JSON.stringify(response.data.user));
+			if (response.data.user) {
+				navigate("/");
+			} else {
+				setError("Access denied.");
+			}
 		} catch (err) {
-			setError("Login failed. Please check your credentials and try again.");
-		} finally {
-			setLoading(false);
+			setError("Invalid credentials");
 		}
 	};
+
+	
 
 	return (
 		<main className="isolate bg-white px-6 py-24 sm:py-32 lg:px-8">
@@ -53,7 +59,7 @@ const SignIn = () => {
 					</p>
 				</div>
 
-				<form className="grid grid-cols-1 gap-y-6 py-6" onSubmit={handleSubmit}>
+				<form className="grid grid-cols-1 gap-y-6 py-6" onSubmit={handleLogin}>
 					<div className="grid w-full max-w-sm items-center gap-2">
 						<Label
 							htmlFor="email"

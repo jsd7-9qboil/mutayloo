@@ -7,3 +7,8 @@ export const login = async (email, password) => {
 		password,
 	});
 };
+
+// get users profile
+export const fetchUsers = async () => {
+	return apiClient.get("/profile");
+};
