@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const apiClient = axios.create({
-  baseURL: "https://mutayloo-backend.onrender.com", // Replace with your actual API URL
+  baseURL: "http://localhost:5555", // Replace with your actual API URL
   headers: { "Content-Type": "application/json" },
 });
 
