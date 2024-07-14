@@ -1,17 +1,31 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 // components
 import ProductCard from "@/components/ProductCard";
-import productData from "@/data/product";
 import { Badge } from "@/components/ui/badge";
 // icons
 import { AiOutlineDown } from "react-icons/ai";
 import { IoFilter } from "react-icons/io5";
 import BreadcrumbBanner from "@/components/BreadcrumbBanner";
+// api
+import { getProducts } from "@/api/apiProduct";
 
 const ProductsList = () => {
+  const [products, setProducts] = useState([]);
   const [isSortOpen, setIsSortOpen] = useState(false);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await getProducts();
+        setProducts(response);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchProducts();
+  }, []);
 
   const toggleSortOptions = () => {
     setIsSortOpen(!isSortOpen);
@@ -20,11 +34,6 @@ const ProductsList = () => {
   const toggleFilterOptions = () => {
     setIsFilterOpen(!isFilterOpen);
   };
-
-  console.log(`
-    sort: ${isSortOpen}
-    filter: ${isFilterOpen}
-  `);
 
   return (
     <main>
@@ -105,9 +114,9 @@ const ProductsList = () => {
       {/* grid */}
       <section className="container mx-auto">
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
-          {productData.map((product) => (
+          {products.map((product) => (
             <Link
-              to={`/product/${product.id}`}
+              to={`/product/${product._id}`}
               key={product.id}
               className="cursor-pointer"
             >
