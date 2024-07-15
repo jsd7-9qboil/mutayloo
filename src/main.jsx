@@ -8,7 +8,7 @@ import "./index.css";
 import { RouterProvider } from "react-router-dom";
 import router from "./router";
 
-// context
+// context provider
 import { CartProvider } from "./context/CartContext";
 
 ReactDOM.createRoot(document.getElementById("root")).render(

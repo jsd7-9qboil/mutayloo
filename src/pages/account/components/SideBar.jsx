@@ -17,25 +17,25 @@ const SideBar = () => {
   const location = useLocation();
 
   const handleNavigate = (value) => {
-    console.log(value);
-    switch (value) {
-      case "Account":
-        navigate("/account");
-        break;
-      case "Address":
-        navigate("/account/address");
-        break;
-      case "Orders":
-        navigate("/account/orders");
-        break;
-      case "Wishlist":
-        navigate("/account/wishlist");
-        break;
-      case "Log Out":
-        navigate("/account/logout");
-        break;
-      default:
-        break;
+    if (value === "Log Out") {
+      handleLogout();
+    } else {
+      switch (value) {
+        case "Account":
+          navigate("/account");
+          break;
+        case "Address":
+          navigate("/account/address");
+          break;
+        case "Orders":
+          navigate("/account/orders");
+          break;
+        case "Wishlist":
+          navigate("/account/wishlist");
+          break;
+        default:
+          break;
+      }
     }
   };
 
@@ -49,11 +49,14 @@ const SideBar = () => {
         return "Orders";
       case "/account/wishlist":
         return "Wishlist";
-      case "/account/logout":
-        return "Log Out";
       default:
         return "Account";
     }
+  };
+
+  const handleLogout = () => {
+    localStorage.clear();
+    navigate("/");
   };
 
   return (
@@ -86,22 +89,24 @@ const SideBar = () => {
           </Select>
         </nav>
 
-        <nav className="px-8 flex flex-col gap-4">
-          {["Account", "Address", "Orders", "Wishlist", "Log-Out"].map(
+        <nav className="hidden lg:flex flex-col px-8 gap-4">
+          {["Account", "Address", "Orders", "Wishlist", "Log Out"].map(
             (item) => (
               <Link
                 key={item}
-                to={`/account${
-                  item !== "Account" ? `/${item.toLowerCase()}` : ""
-                }`}
+                to={
+                  item !== "Log Out"
+                    ? `/account${
+                        item !== "Account" ? `/${item.toLowerCase()}` : ""
+                      }`
+                    : "#"
+                }
+                onClick={item === "Log Out" ? handleLogout : undefined}
                 className={`
-                  ${
-                    getCurrentPage() === item 
-                    && "font-bold pb-2 border-b-2 border-base-500"
-                  }
-                `}
+									${getCurrentPage() === item && "font-bold pb-2 border-b-2 border-base-500"}
+								`}
               >
-                {item.split("-").join(" ")}
+                {item}
               </Link>
             )
           )}

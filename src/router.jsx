@@ -1,4 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
+// protected route
+import ProtectedRoute from "./pages/ProtectedRoute";
 // layout
 import Layout from "./pages/Layout";
 // pages
@@ -43,15 +45,27 @@ const router = createBrowserRouter([
       // payment
       {
         path: "/cart",
-        element: <Cart />,
+        element: (
+          <ProtectedRoute>
+            <Cart />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/checkout",
-        element: <Checkout />,
+        element: (
+          <ProtectedRoute>
+            <Checkout />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/complete",
-        element: <Complete />,
+        element: (
+          <ProtectedRoute>
+            <Complete />
+          </ProtectedRoute>
+        ),
       },
 
       // horoscope
@@ -83,7 +97,11 @@ const router = createBrowserRouter([
       // account
       {
         path: "account",
-        element: <Account />,
+        element: (
+          <ProtectedRoute>
+            <Account />
+          </ProtectedRoute>
+        ),
         children: [
           {
             path: "",

@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import productData from "../../data/product";
+// api
+import { getProductById } from "@/api/apiProduct";
 // components
 import ProductGallery from "./components/ProductGallery";
 import ProductAction from "./components/ProductAction";
@@ -10,11 +11,16 @@ import BreadcrumbSmall from "@/components/BreadcrumbSmall";
 
 const ProductDetail = () => {
   const { id } = useParams();
-  const product = productData.find(
-    (product) => product.id === parseInt(id, 10)
-  );
+  const [product, setProduct] = useState({});
 
-  //console.log(product);
+  useEffect(() => {
+    const fetchProduct = async () => {
+      const data = await getProductById(id);
+      setProduct(data);
+    };
+    fetchProduct();
+  }, [id]);
+
   return (
     <main>
       <section className="container mx-auto py-4">
@@ -22,11 +28,11 @@ const ProductDetail = () => {
       </section>
 
       <section className="container mx-auto">
-        <div className="grid grid-cols-12">
-          <div className="col-span-7">
+        <div className="grid grid-cols-12 gap-8">
+          <div className="col-span-12 lg:col-span-7">
             <ProductGallery />
           </div>
-          <div className="col-span-5">
+          <div className="col-span-12 lg:col-span-5">
             <ProductAction product={product} />
           </div>
         </div>

@@ -1,13 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+// api
+import { login } from "@/api/authApi";
+// components
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
 const SignIn = () => {
-  const handleSubmit = (e) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
+  const handleLogin = async (e) => {
     e.preventDefault();
-    console.log("Form submitted");
+    try {
+      const response = await login(email, password);
+
+      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("user", JSON.stringify(response.data.user));
+
+      navigate("/");
+    } catch (error) {
+      console.error("login failed", error);
+    }
   };
 
   return (
@@ -36,7 +53,7 @@ const SignIn = () => {
         </div>
 
         {/* form start */}
-        <form className="grid grid-cols-1 gap-y-6 py-6" onSubmit={handleSubmit}>
+        <form className="grid grid-cols-1 gap-y-6 py-6" onSubmit={handleLogin}>
           <div className="grid w-full max-w-sm items-center gap-2">
             <Label
               htmlFor="username"
@@ -44,7 +61,13 @@ const SignIn = () => {
             >
               Username or Email
             </Label>
-            <Input type="text" id="username" placeholder="Username or Email" />
+            <Input
+              type="text"
+              id="username"
+              placeholder="Username or Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
           </div>
 
           <div className="grid w-full max-w-sm items-center gap-2">
@@ -54,7 +77,13 @@ const SignIn = () => {
             >
               Password
             </Label>
-            <Input type="password" id="password" placeholder="Password" />
+            <Input
+              type="password"
+              id="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
           </div>
 
           <Button type="submit">Sign In</Button>
