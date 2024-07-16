@@ -26,8 +26,8 @@ const ProductAction = ({ product }) => {
   const handleAddToCart = () => {
     addItem(product._id, quantity);
     toast({
-      title: "เพิ่มสินค้าในตะกร้าสำเร็จ",
-      description: `เพิ่ม ${product.name} จำนวน ${quantity} ชิ้นในตะกร้าเรียบร้อยแล้ว`,
+      title: "Product added to cart successfully.",
+      description: `Added ${quantity} ${product.name} to cart`,
       duration: 3000,
       variant: "success",
     });
@@ -185,10 +185,10 @@ const ProductAction = ({ product }) => {
           className="w-48 flex items-center gap-2"
         >
           <ShoppingCart className="w-4 h-4" />
-          <p>เพิ่มไปยังรถเข็น</p>
+          <p>Add to cart</p>
         </Button>
         <Button variant="default" className="w-48 flex items-center gap-2">
-          <p>ซื้อเลย</p>
+          <p>Buy now</p>
         </Button>
       </div>
     </section>
