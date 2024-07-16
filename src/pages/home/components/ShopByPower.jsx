@@ -17,7 +17,7 @@ const ShopByPower = () => {
               <img src={luck} alt="Luck" className="w-full" />
             </figure>
             <div className="py-4 flex flex-col gap-2">
-              <p className="text-3xl font-semibold">Luck 🍀</p>
+              <p className="text-3xl font-semibold uppercase">Luck 🍀</p>
               <p>
                 Discover charms that attract luck and fortune. Elevate your
                 style with our lucky jewelry.
@@ -34,7 +34,7 @@ const ShopByPower = () => {
             <figure className="w-full">
               <img src={love} alt="Love" className="w-full" />
             </figure>
-            <div className="py-4 flex flex-col gap-2">
+            <div className="py-4 flex flex-col gap-2 uppercase">
               <p className="text-3xl font-semibold">Love ❤️</p>
               <p>
                 Find perfect pieces to bring love and passion. Our jewelry
@@ -53,7 +53,7 @@ const ShopByPower = () => {
               <img src={success} alt="Success" className="w-full" />
             </figure>
             <div className="py-4 flex flex-col gap-2">
-              <p className="text-3xl font-semibold">Success 🎉</p>
+              <p className="text-3xl font-semibold uppercase">Success 🎉</p>
               <p>
                 Empower your path to success with our crafted jewelry. Wear our
                 pieces to boost your confidence.
