@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 // components
 import ProductCard from "@/components/ProductCard";
 import { Badge } from "@/components/ui/badge";
@@ -14,18 +14,25 @@ const ProductsList = () => {
   const [products, setProducts] = useState([]);
   const [isSortOpen, setIsSortOpen] = useState(false);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [selectedPower, setSelectedPower] = useState("");
+
+  const location = useLocation();
 
   useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const power = params.get("power");
+    setSelectedPower(power || "");
+
     const fetchProducts = async () => {
       try {
-        const response = await getProducts();
+        const response = await getProducts(power || "");
         setProducts(response);
       } catch (error) {
         console.error(error);
       }
     };
     fetchProducts();
-  }, []);
+  }, [location.search]);
 
   const toggleSortOptions = () => {
     setIsSortOpen(!isSortOpen);
@@ -35,25 +42,45 @@ const ProductsList = () => {
     setIsFilterOpen(!isFilterOpen);
   };
 
+  const handleFilterChange = (power) => {
+    setSelectedPower(power);
+    setIsFilterOpen(false); // Close filter options after selection
+  };
+
+  const getBadgeColor = (power) => {
+    switch (power) {
+      case "luck":
+        return "bg-green-600";
+      case "love":
+        return "bg-pink-600";
+      case "success":
+        return "bg-yellow-600";
+      case "strength":
+        return "bg-blue-600";
+      default:
+        return "bg-gray-600";
+    }
+  };
+
   return (
     <main>
       <BreadcrumbBanner />
 
-      {/* fillter */}
+      {/* filter */}
       <section className="container mx-auto">
         <div className="flex justify-between py-8">
           {/* left */}
           <div className="flex gap-2">
-            <Badge>Badge</Badge>
-            <Badge variant="secondary">Badge</Badge>
-            <Badge variant="accent">Badge</Badge>
-            <Badge variant="destructive">Badge</Badge>
-            <Badge variant="outline">Badge</Badge>
+            {selectedPower && (
+              <Badge className={`${getBadgeColor(selectedPower)}`}>
+                {selectedPower}
+              </Badge>
+            )}
           </div>
           {/* right */}
           <div className="flex gap-8">
-            <div className="flex itms-center gap-2 relative">
-              <p className={`${isSortOpen ? "font-bold" : ""}`}>Short by</p>
+            <div className="flex items-center gap-2 relative">
+              <p className={`${isSortOpen ? "font-bold" : ""}`}>Sort by</p>
               <AiOutlineDown
                 onClick={toggleSortOptions}
                 className={`w-6 h-6 ${
@@ -82,7 +109,7 @@ const ProductsList = () => {
                 </div>
               )}
             </div>
-            <div className="flex itms-center gap-2 relative">
+            <div className="flex items-center gap-2 relative">
               <p className={`${isFilterOpen ? "text-primary" : ""}`}>Filter</p>
               <IoFilter
                 onClick={toggleFilterOptions}
@@ -93,13 +120,14 @@ const ProductsList = () => {
               {isFilterOpen && (
                 <div className="absolute left-0 z-10 mt-2 bg-white border border-gray-300 rounded-lg shadow-lg top-full">
                   <ul className="py-2">
-                    {["Rings", "Bracelets", "Ear-rings", "Necklaces"].map(
-                      (category, index) => (
+                    {["luck", "love", "success", "strength"].map(
+                      (power, index) => (
                         <li
                           key={index}
+                          onClick={() => handleFilterChange(power)}
                           className="px-4 py-2 cursor-pointer hover:bg-gray-200"
                         >
-                          {category}
+                          {power}
                         </li>
                       )
                     )}
@@ -117,7 +145,7 @@ const ProductsList = () => {
           {products.map((product) => (
             <Link
               to={`/product/${product._id}`}
-              key={product.id}
+              key={product._id}
               className="cursor-pointer"
             >
               <ProductCard product={product} />

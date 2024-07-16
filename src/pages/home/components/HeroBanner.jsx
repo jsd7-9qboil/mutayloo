@@ -31,7 +31,7 @@ const BannerItem = ({ banner }) => {
             dangerouslySetInnerHTML={{ __html: banner.subtitle }}
           />
           <div className="flex gap-4">
-            <Button className="px-8">Click me</Button>
+            <Button size="lg" className="px-8">ดูเพิ่มเติม</Button>
           </div>
         </div>
         <div className="hidden lg:block"></div>

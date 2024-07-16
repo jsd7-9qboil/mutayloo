@@ -64,7 +64,8 @@ const SideBar = () => {
       <div className="flex flex-col px-4 py-12 gap-8 bg-base-200 rounded-lg">
         <div className="flex flex-col">
           <Avatar className="self-center aspect-square w-[82px] h-auto">
-            <AvatarImage src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBxKgm60O8nnEzuXGjbrasI0pCeOOrpFYFDA&s" />
+            {/* <AvatarImage src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBxKgm60O8nnEzuXGjbrasI0pCeOOrpFYFDA&s" /> */}
+            <AvatarImage src="https://via.placeholder.com/1080" />
             <AvatarFallback>J</AvatarFallback>
           </Avatar>
 
