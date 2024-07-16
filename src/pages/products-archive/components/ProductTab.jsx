@@ -1,37 +1,20 @@
-import React, { useState } from "react";
+import React from "react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-const ProductTab = () => {
-  const [tab, setTab] = useState("Detail");
-
+const ProductTab = ({ product }) => {
   return (
-    <div>
-      <div className="flex gap-8">
-        <button
-          onClick={() => setTab("Detail")}
-          className={tab === "Detail" ? "font-bold" : ""}
-        >
-          Detail
-        </button>
-        <button
-          onClick={() => setTab("Prophecy")}
-          className={tab === "Prophecy" ? "font-bold" : ""}
-        >
-          Prophecy
-        </button>
-        <button
-          onClick={() => setTab("Reviews")}
-          className={tab === "Reviews" ? "font-bold" : ""}
-        >
-          Reviews
-        </button>
-      </div>
-
-      <div className="bg-base-100 py-8">
-        {tab === "Detail" && <p>Detail</p>}
-        {tab === "Prophecy" && <p>Prophecy</p>}
-        {tab === "Reviews" && <p>Reviews</p>}
-      </div>
-    </div>
+    <Tabs defaultValue="detail" className="w-full">
+      <TabsList className="bg-base-100">
+        <TabsTrigger value="detail">Detail</TabsTrigger>
+        <TabsTrigger value="reviews">Reviews</TabsTrigger>
+      </TabsList>
+      <TabsContent value="detail" className="w-full p-4 bg-base-100">
+        <p>{product?.desc}</p>
+      </TabsContent>
+      <TabsContent value="reviews" className="w-full p-4 bg-base-100">
+        Reviews
+      </TabsContent>
+    </Tabs>
   );
 };
 

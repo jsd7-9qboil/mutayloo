@@ -24,13 +24,13 @@ const ProductDetail = () => {
   return (
     <main>
       <section className="container mx-auto py-4">
-        <BreadcrumbSmall />
+        <BreadcrumbSmall pagename={product.name} />
       </section>
 
       <section className="container mx-auto">
         <div className="grid grid-cols-12 gap-8">
           <div className="col-span-12 lg:col-span-7">
-            <ProductGallery />
+            <ProductGallery product={product} />
           </div>
           <div className="col-span-12 lg:col-span-5">
             <ProductAction product={product} />
@@ -39,7 +39,7 @@ const ProductDetail = () => {
       </section>
 
       <section className="container mx-auto my-16">
-        <ProductTab />
+        <ProductTab product={product} />
       </section>
 
       <section>

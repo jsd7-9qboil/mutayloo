@@ -5,7 +5,7 @@ import banner3 from "../assets/images/banner-3.jpg";
 const bannerData = [
   {
     id: 1,
-    title: "&quot;เลือกเครื่องประดับ <br /> ตามดวงราษีได้ที่นี่&quot;",
+    title: "&quot;เลือกเครื่องประดับ <br /> ตามดวงราศีได้ที่นี่&quot;",
     subtitle: "เครื่องประดับสายมู <br /> ที่เสริมได้ดั่งใจนึก",
     imageUrl: banner1,
   },

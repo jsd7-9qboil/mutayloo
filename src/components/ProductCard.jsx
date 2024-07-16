@@ -1,6 +1,5 @@
 import React from "react";
-
-import { AiOutlineHeart, AiOutlineShoppingCart } from "react-icons/ai";
+import { Heart } from "lucide-react";
 
 const ProductCard = ({ product }) => {
   const productImage = product?.image?.thumbnail || "default-image-url";
@@ -21,7 +20,7 @@ const ProductCard = ({ product }) => {
           className="flex justify-center items-center p-1.5 my-auto w-8 h-8 bg-white shadow-lg rounded-[32px] hover:scale-110 hover:shadow-xl duration-300"
           aria-label="Add to Wishlist"
         >
-          <AiOutlineHeart className="w-6 h-6" />
+          <Heart className="w-6 h-6" />
         </button>
       </div>
       <figure className="w-full">
