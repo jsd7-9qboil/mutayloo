@@ -5,22 +5,23 @@ import banner3 from "../assets/images/banner-3.jpg";
 const bannerData = [
   {
     id: 1,
-    title: "&quot;เลือกเครื่องประดับ <br /> ตามดวงราศีได้ที่นี่&quot;",
-    subtitle: "เครื่องประดับสายมู <br /> ที่เสริมได้ดั่งใจนึก",
+    title: "&quot;Choose jewelry according <br /> to your zodiac here&quot;",
+    subtitle:
+      "Jewelry with unique designs that can be custom made to your liking",
     imageUrl: banner1,
   },
   {
     id: 2,
-    title: "Banner 2",
+    title: "&quot;Choose jewelry according <br /> to your zodiac here&quot;",
     subtitle:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+      "Jewelry with unique designs that can be custom made to your liking",
     imageUrl: banner2,
   },
   {
     id: 3,
-    title: "Banner 3",
+    title: "&quot;Choose jewelry according <br /> to your zodiac here&quot;",
     subtitle:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+      "Jewelry with unique designs that can be custom made to your liking",
     imageUrl: banner3,
   },
 ];

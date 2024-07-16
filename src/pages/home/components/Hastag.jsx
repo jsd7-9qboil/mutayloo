@@ -1,54 +1,43 @@
 import { AiOutlineInstagram } from "react-icons/ai";
+import hastag1 from "@/assets/images/hastag-1.jpg";
+import hastag2 from "@/assets/images/hastag-2.jpg";
+import hastag3 from "@/assets/images/hastag-3.jpg";
+import hastag4 from "@/assets/images/hastag-4.jpg";
 
 const Hastag = () => {
   return (
     <section className="py-16">
-      <div className="container flex flex-col gap-4 lg:gap-6">
+      <div className="container flex flex-col">
         <h2 className="text-center leading-tight">#mutayloojewelry</h2>
         <p className="text-center text-base-800">
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry.
+          Show off your style! Share your photos wearing our jewelry with
+          <span className="font-semibold"> #mutayloojewelry</span> and get
+          featured.
         </p>
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="mt-8 grid grid-cols-2 lg:grid-cols-4 gap-8">
           <div>
-            <img
-              src="https://via.placeholder.com/350x350"
-              alt=""
-              className="w-full"
-            />
+            <img src={hastag1} alt="" className="w-full" />
             <div className="flex justify-center items-center gap-2">
               <AiOutlineInstagram className="w-6 h-6" />
               <p className="my-4">@ABCDE</p>
             </div>
           </div>
           <div>
-            <img
-              src="https://via.placeholder.com/350x350"
-              alt=""
-              className="w-full"
-            />
+            <img src={hastag2} alt="" className="w-full" />
             <div className="flex justify-center items-center gap-2">
               <AiOutlineInstagram className="w-6 h-6" />
               <p className="my-4">@ABCDE</p>
             </div>
           </div>
           <div>
-            <img
-              src="https://via.placeholder.com/350x350"
-              alt=""
-              className="w-full"
-            />
+            <img src={hastag3} alt="" className="w-full" />
             <div className="flex justify-center items-center gap-2">
               <AiOutlineInstagram className="w-6 h-6" />
               <p className="my-4">@ABCDE</p>
             </div>
           </div>
           <div>
-            <img
-              src="https://via.placeholder.com/350x350"
-              alt=""
-              className="w-full"
-            />
+            <img src={hastag4} alt="" className="w-full" />
             <div className="flex justify-center items-center gap-2">
               <AiOutlineInstagram className="w-6 h-6" />
               <p className="my-4">@ABCDE</p>
