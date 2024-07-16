@@ -15,7 +15,7 @@ const OurProducts = ({ productsData }) => {
   };
 
   return (
-    <section>
+    <section className="mb-8">
       <div className="container">
         <div className="flex justify-between items-center py-8">
           <h2 className="font-bold">Our Products</h2>

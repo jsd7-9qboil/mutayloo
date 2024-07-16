@@ -19,8 +19,8 @@ const ShopByPower = () => {
             <div className="py-4 flex flex-col gap-2">
               <p className="text-3xl font-semibold">Luck 🍀</p>
               <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry.
+                Discover charms that attract luck and fortune. Elevate your
+                style with our lucky jewelry.
               </p>
               <Link
                 to="/products?power=luck"
@@ -37,8 +37,8 @@ const ShopByPower = () => {
             <div className="py-4 flex flex-col gap-2">
               <p className="text-3xl font-semibold">Love ❤️</p>
               <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry.
+                Find perfect pieces to bring love and passion. Our jewelry
+                enhances your romantic journey.
               </p>
               <Link
                 to="/products?power=love"
@@ -55,8 +55,8 @@ const ShopByPower = () => {
             <div className="py-4 flex flex-col gap-2">
               <p className="text-3xl font-semibold">Success 🎉</p>
               <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry.
+                Empower your path to success with our crafted jewelry. Wear our
+                pieces to boost your confidence.
               </p>
               <Link
                 to="/products?power=success"
