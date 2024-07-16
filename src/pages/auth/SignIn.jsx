@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import "@/utils/custom-toast.css";
 import { login } from "@/api/authApi";
 
 const SignIn = () => {
@@ -22,17 +23,30 @@ const SignIn = () => {
 		try {
 			const response = await login(email, password);
 
-			localStorage.setItem("token", response.data.token);
-			localStorage.setItem("user", JSON.stringify(response.data.user));
-			if (response.data.user) {
+			if (response.data.token && response.data.user) {
+				localStorage.setItem("token", response.data.token);
+				localStorage.setItem("user", JSON.stringify(response.data.user));
 				toast.success("ลงชื่อเข้าใช้สำเร็จ !!");
 				navigate("/");
 			} else {
 				setError("Access denied.");
+				toast.error("Access denied.");
 			}
 		} catch (err) {
-			setError("Invalid credentials");
-			toast.error("Invalid credentials");
+			console.error("Login error:", err);
+			if (err.response) {
+				// กรณีที่เซิร์ฟเวอร์ตอบกลับด้วยสถานะข้อผิดพลาด
+				setError(err.response.data.message || "Login failed");
+				toast.error(err.response.data.message || "Login failed");
+			} else if (err.request) {
+				// กรณีที่ไม่ได้รับการตอบกลับจากเซิร์ฟเวอร์
+				setError("No response from server");
+				toast.error("No response from server");
+			} else {
+				// ข้อผิดพลาดอื่น ๆ
+				setError("An error occurred during login");
+				toast.error("An error occurred during login");
+			}
 		} finally {
 			setLoading(false);
 		}

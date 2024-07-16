@@ -10,12 +10,16 @@ export const editProfile = async () => {
 	return apiClient.get("/users/profile");
 };
 
-// Update user profile
-export const updateProfile = async (userData) => {
-	return apiClient.patch("/users/profile", userData);
-};
-
 // Register
 export const registerProfile = async (userData) => {
 	return apiClient.post("/users/register", userData);
+};
+
+// Update user profile
+export const updateUserProfile = async (formData) => {
+	return apiClient.post("/users/profile", formData, {
+		headers: {
+			"Content-Type": "multipart/form-data",
+		},
+	});
 };

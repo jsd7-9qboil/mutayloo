@@ -81,7 +81,7 @@ const SignUp = () => {
 			localStorage.setItem("token", response.data.token);
 			toast.success("Registration successful!");
 			setTimeout(() => {
-				navigate("/account");
+				navigate("/sign-in");
 			}, 1500);
 		} catch (err) {
 			const errorMessage = err.response?.data?.message || "Registration failed";
@@ -104,6 +104,7 @@ const SignUp = () => {
 				pauseOnFocusLoss
 				draggable
 				pauseOnHover
+				className="z-50 fixed top-0 left-0" // เพิ่ม Tailwind classes
 			/>
 			<div
 				className="absolute inset-x-0 top-[-10rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]"
