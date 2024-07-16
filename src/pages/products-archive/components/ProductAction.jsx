@@ -19,6 +19,7 @@ import useCart from "@/hooks/useCart";
 const ProductAction = ({ product }) => {
   const { toast } = useToast();
   const { addItem } = useCart();
+  const [isFavorite, setIsFavorite] = useState(false);
   const [quantity, setQuantity] = useState(1);
   const [selectedSize, setSelectedSize] = useState("");
   const [selectedColor, setSelectedColor] = useState("");
@@ -75,7 +76,20 @@ const ProductAction = ({ product }) => {
         <h1 className="text-4xl font-bold">{product.name}</h1>
         <div className="flex items-center justify-between">
           <p className="text-xl font-semibold">{product.price} Bath</p>
-          <Heart className="w-4 h-4" />
+          <button
+            onClick={() => setIsFavorite(!isFavorite)}
+            className="relative flex items-center justify-center focus:outline-none"
+          >
+            <Heart
+              className={`w-6 h-6 transition-transform duration-300 ease-in-out ${
+                isFavorite
+                  ? "text-[#FFC107] transform scale-125"
+                  : "text-gray-400"
+              }`}
+              fill={isFavorite ? "#FFC107" : "none"}
+              stroke={isFavorite ? "#FFC107" : "currentColor"}
+            />
+          </button>
         </div>
       </div>
 

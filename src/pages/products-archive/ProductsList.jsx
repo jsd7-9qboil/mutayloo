@@ -4,6 +4,16 @@ import { Link, useLocation } from "react-router-dom";
 import ProductCard from "@/components/ProductCard";
 import BreadcrumbBanner from "@/components/BreadcrumbBanner";
 import FilterBar from "./components/FilterBar";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
+
 // api
 import { getProducts } from "@/api/apiProduct";
 
@@ -88,6 +98,20 @@ const ProductsList = () => {
           ))}
         </div>
       </section>
+
+      <Pagination>
+        <PaginationContent>
+          <PaginationItem>
+            <PaginationPrevious href="#" />
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationLink href="#">1</PaginationLink>
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationNext href="#" />
+          </PaginationItem>
+        </PaginationContent>
+      </Pagination>
     </main>
   );
 };

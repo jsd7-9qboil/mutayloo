@@ -1,7 +1,7 @@
 import React from "react";
-import { AiOutlineDown } from "react-icons/ai";
-import { IoFilter } from "react-icons/io5";
 import { Badge } from "@/components/ui/badge";
+import { ListFilter } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const FilterBar = ({
@@ -21,6 +21,7 @@ const FilterBar = ({
       navigate("/products");
     } else {
       navigate(`/products?power=${power}`);
+      toggleFilterOptions();
     }
   };
 
@@ -62,7 +63,7 @@ const FilterBar = ({
           {/* sort */}
           <div className="flex items-center gap-2 relative">
             <p className={`${isSortOpen ? "font-bold" : ""}`}>Sort by</p>
-            <AiOutlineDown
+            <ChevronDown
               onClick={toggleSortOptions}
               className={`w-6 h-6 ${
                 isSortOpen
@@ -93,7 +94,7 @@ const FilterBar = ({
           {/* filter */}
           <div className="flex items-center gap-2 relative">
             <p className={`${isFilterOpen ? "text-primary" : ""}`}>Filter</p>
-            <IoFilter
+            <ListFilter
               onClick={toggleFilterOptions}
               className={`w-6 h-6 ${
                 isFilterOpen ? "duration-300 text-primary" : "duration-300"

@@ -6,7 +6,7 @@ export const login = async (email, password) => {
 };
 
 // Get user profile
-export const editProfile = async () => {
+export const getProfile = async () => {
   return apiClient.get("/users/profile");
 };
 
