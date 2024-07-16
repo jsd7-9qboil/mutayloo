@@ -1,7 +1,6 @@
 import React from "react";
 // icons
 import { TicketPercent } from "lucide-react";
-import { CreditCard } from "lucide-react";
 import { PackageCheck } from "lucide-react";
 import promtPay from "@/assets/icons/promptPay.png";
 
@@ -27,12 +26,13 @@ const Checkout = () => {
     <main className="container">
       <Head step={2} />
       <section className="w-full grid grid-cols-12 gap-8 mb-24">
+        {/* left */}
         <div className="col-span-12 lg:col-span-8 ">
           <div className="flex flex-col border rounded-lg p-8">
             <h2 className="pb-6">Contact Infomation</h2>
             <form className="flex flex-col gap-4">
               <div className="grid gap-1.5">
-                <Label>ที่อยู่การจัดส่ง (ถ้ามี)</Label>
+                <Label>Billing Address</Label>
                 <Select>
                   <SelectTrigger className="w-full">
                     <SelectValue placeholder="เลือกที่อยู่สำหรับจัดส่ง" />
@@ -110,7 +110,10 @@ const Checkout = () => {
             </form>
           </div>
         </div>
+
+        {/* right */}
         <div className="col-span-12 lg:col-span-4 flex flex-col gap-8">
+          {/* Order summary */}
           <div className="flex flex-col border rounded-lg p-8">
             <h2 className="pb-6">Order summary</h2>
             <div>
@@ -156,6 +159,7 @@ const Checkout = () => {
             </div>
           </div>
 
+          {/* payment method */}
           <div className="flex flex-col border rounded-lg p-8">
             <h2 className="pb-6">Payment method</h2>
             <div>
@@ -168,7 +172,7 @@ const Checkout = () => {
                   </div>
                 </div>
                 <div className="flex items-center space-x-4 p-4 border-2 rounded-lg">
-                  <RadioGroupItem value="Cash on delivery"/>
+                  <RadioGroupItem value="Cash on delivery" />
                   <div className="w-full flex justify-between items-center">
                     <Label htmlFor="r2">Cash on delivery</Label>
                     <PackageCheck />

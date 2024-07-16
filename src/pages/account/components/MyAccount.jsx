@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { editProfile, updateProfile } from "@/api/authApi";
+import { getProfile, updateProfile } from "@/api/authApi";
 import { useToast } from "@/components/ui/use-toast";
 
 const MyAccount = () => {
@@ -21,7 +21,7 @@ const MyAccount = () => {
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
-        const response = await editProfile();
+        const response = await getProfile();
         setUserData({
           fname: response.data.fname || "",
           lname: response.data.lname || "",
