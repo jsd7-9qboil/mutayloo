@@ -2,11 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 // components
 import ProductCard from "@/components/ProductCard";
-import { Badge } from "@/components/ui/badge";
-// icons
-import { AiOutlineDown } from "react-icons/ai";
-import { IoFilter } from "react-icons/io5";
 import BreadcrumbBanner from "@/components/BreadcrumbBanner";
+import FilterBar from "./components/FilterBar";
 // api
 import { getProducts } from "@/api/apiProduct";
 
@@ -47,19 +44,19 @@ const ProductsList = () => {
     setIsFilterOpen(false); // Close filter options after selection
   };
 
-  const getBadgeColor = (power) => {
-    switch (power) {
-      case "luck":
-        return "bg-green-600";
-      case "love":
-        return "bg-pink-600";
-      case "success":
-        return "bg-yellow-600";
-      case "strength":
-        return "bg-blue-600";
-      default:
-        return "bg-gray-600";
+  const handleSortChange = (option) => {
+    setIsSortOpen(false); // Close sort options after selection
+
+    // Sort products based on the selected option
+    let sortedProducts = [...products];
+    if (option === "Alphabetically") {
+      sortedProducts.sort((a, b) => a.name.localeCompare(b.name));
+    } else if (option === "Price High to Low") {
+      sortedProducts.sort((a, b) => b.price - a.price);
+    } else if (option === "Price Low to High") {
+      sortedProducts.sort((a, b) => a.price - b.price);
     }
+    setProducts(sortedProducts);
   };
 
   return (
@@ -67,80 +64,18 @@ const ProductsList = () => {
       <BreadcrumbBanner />
 
       {/* filter */}
-      <section className="container mx-auto">
-        <div className="flex justify-between py-8">
-          {/* left */}
-          <div className="flex gap-2">
-            {selectedPower && (
-              <Badge className={`${getBadgeColor(selectedPower)}`}>
-                {selectedPower}
-              </Badge>
-            )}
-          </div>
-          {/* right */}
-          <div className="flex gap-8">
-            <div className="flex items-center gap-2 relative">
-              <p className={`${isSortOpen ? "font-bold" : ""}`}>Sort by</p>
-              <AiOutlineDown
-                onClick={toggleSortOptions}
-                className={`w-6 h-6 ${
-                  isSortOpen
-                    ? "rotate-180 duration-300 text-primary"
-                    : "duration-300"
-                }`}
-              />
-              {isSortOpen && (
-                <div className="absolute left-0 z-10 mt-2 bg-white border border-gray-300 rounded-lg shadow-lg top-full">
-                  <ul className="py-2">
-                    {[
-                      "Alphabets",
-                      "Price High to Low",
-                      "Price Low to High",
-                      "Newest",
-                    ].map((category, index) => (
-                      <li
-                        key={index}
-                        className="px-4 py-2 cursor-pointer hover:bg-gray-200"
-                      >
-                        {category}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-            </div>
-            <div className="flex items-center gap-2 relative">
-              <p className={`${isFilterOpen ? "text-primary" : ""}`}>Filter</p>
-              <IoFilter
-                onClick={toggleFilterOptions}
-                className={`w-6 h-6 ${
-                  isFilterOpen ? "duration-300 text-primary" : "duration-300"
-                }`}
-              />
-              {isFilterOpen && (
-                <div className="absolute left-0 z-10 mt-2 bg-white border border-gray-300 rounded-lg shadow-lg top-full">
-                  <ul className="py-2">
-                    {["luck", "love", "success", "strength"].map(
-                      (power, index) => (
-                        <li
-                          key={index}
-                          onClick={() => handleFilterChange(power)}
-                          className="px-4 py-2 cursor-pointer hover:bg-gray-200"
-                        >
-                          {power}
-                        </li>
-                      )
-                    )}
-                  </ul>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      </section>
+      <FilterBar
+        selectedPower={selectedPower}
+        onFilterChange={handleFilterChange}
+        onSortChange={handleSortChange}
+        isSortOpen={isSortOpen}
+        toggleSortOptions={toggleSortOptions}
+        isFilterOpen={isFilterOpen}
+        toggleFilterOptions={toggleFilterOptions}
+      />
 
       {/* grid */}
-      <section className="container mx-auto">
+      <section className="container mx-auto mb-16">
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
           {products.map((product) => (
             <Link
