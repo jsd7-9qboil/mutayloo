@@ -1,7 +1,7 @@
 import apiClient from "./apiClient";
 
-export const addAddress = async (addressData) => {
-	return apiClient.post("/addresses/add", addressData);
+export const addAddress = (addressData) => {
+	return apiClient.post("/addresses/add", addressData); // addressData ควรมี customer_id
 };
 
 export const getAllAddresses = async () => {
@@ -16,8 +16,8 @@ export const getAddressesByCustomerId = async (customerId) => {
 	return apiClient.get(`/addresses/customer/${customerId}`);
 };
 
-export const updateAddress = async (id, addressData) => {
-	return apiClient.patch(`/addresses/${id}`, addressData);
+export const updateAddress = (id, addressData) => {
+	return apiClient.patch(`/addresses/${id}`, addressData); // addressData ควรมี customer_id
 };
 
 export const deleteAddress = async (id) => {
