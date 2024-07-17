@@ -1,16 +1,22 @@
 import React from "react";
-// icons
-import { Plus } from "lucide-react";
-import { Minus } from "lucide-react";
-import { Trash } from "lucide-react";
-import { X } from "lucide-react";
-// components
+import { Plus, Minus, Trash, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import useCart from "@/hooks/useCart";
+import { Separator } from "@/components/ui/separator";
 
-const CartItem = ({ item }) => {
+const CartItem = ({ item, selectItems, setSelectItems }) => {
   const { updateItem, removeItem } = useCart();
   const product = item.product;
+
+  const handleSelect = () => {
+    setSelectItems((prev) => {
+      if (prev.includes(item.product._id)) {
+        return prev.filter((id) => id !== item.product._id);
+      } else {
+        return [...prev, item.product._id];
+      }
+    });
+  };
 
   const increaseQuantity = () => {
     updateItem(item.product._id, item.quantity + 1);
@@ -31,7 +37,15 @@ const CartItem = ({ item }) => {
       <div className="grid grid-cols-12">
         <div className="col-span-8 lg:col-span-8">
           <div className="flex gap-4">
-            <figure className="min-w-32 min-h-32 lg:min-w-56 lg:min-h-56 lg:max-w-56 lg:max-h-56">
+            <div className="flex items-center md:px-2 lg:px-4">
+              <input
+                type="checkbox"
+                checked={selectItems.includes(product._id)}
+                onChange={handleSelect}
+                className="w-4 h-4 md:w-4 md:h-4 rounded border-gray-300 text-checkbox focus:ring-checkbox checked:bg-checkbox checked:border-checkbox"
+              />
+            </div>
+            <figure className="min-w-32 min-h-32 max-w-32 max-h-32 lg:min-w-56 lg:min-h-56 lg:max-w-56 lg:max-h-56">
               <img
                 src={product.image.thumbnail}
                 alt={product.name}
@@ -39,8 +53,10 @@ const CartItem = ({ item }) => {
               />
             </figure>
             <div className="w-full flex flex-col gap-2 justify-center">
-              <p className="text-xl lg:text-2xl font-bold">{product.name}</p>
-              <p className="text-sm lg:text-base">Color: {product.color}</p>
+              <p className="text-lg lg:text-2xl font-bold">{product.name}</p>
+              <p className="hidden md:block text-sm lg:text-base">
+                Color: {product.color}
+              </p>
               <p className="text-sm font-medium lg:hidden">
                 {product.price} Bath
               </p>
@@ -61,21 +77,21 @@ const CartItem = ({ item }) => {
               <Button
                 variant="ghost"
                 size="icon"
-                className="w-8"
+                className="w-6 md:w-8"
                 onClick={decreaseQuantity}
               >
-                <Minus className="w-4 h-4" />
+                <Minus className="w-2 h-2 md:w-4 md:h-4" />
               </Button>
-              <span className="px-2 py-1.5 text-lg font-semibold">
+              <span className="md:px-2 py-1.5 text-sm md:text-lg font-semibold">
                 {item.quantity}
               </span>
               <Button
                 variant="ghost"
                 size="icon"
-                className="w-8"
+                className="w-6 md:w-8"
                 onClick={increaseQuantity}
               >
-                <Plus className="w-4 h-4" />
+                <Plus className="w-2 h-2 md:w-4 md:h-4" />
               </Button>
             </div>
           </div>
@@ -86,6 +102,7 @@ const CartItem = ({ item }) => {
           </Button>
         </div>
       </div>
+      <Separator className="my-4" />
     </div>
   );
 };
