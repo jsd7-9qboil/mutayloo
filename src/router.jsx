@@ -1,4 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
+// protected route
+import ProtectedRoute from "./pages/ProtectedRoute";
+// layout
 import Layout from "./pages/Layout";
 import Home from "./pages/home/Home";
 import ProductsList from "./pages/products-archive/ProductsList";
@@ -12,43 +15,114 @@ import MyAccount from "./pages/account/components/MyAccount";
 import Address from "./pages/account/components/Address";
 import Order from "./pages/account/components/Order";
 import WishList from "./pages/account/components/WishList";
-import ProtectedRoute from "./utils/ProtectedRoute";
+import SignIn from "./pages/auth/SignIn";
+import SignUp from "./pages/auth/SignUp";
+import Cart from "./pages/payment/cart/Cart";
+import Checkout from "./pages/payment/checkout/Checkout";
+import Complete from "./pages/payment/complete/Complete";
 
 const router = createBrowserRouter([
-	{
-		path: "/",
-		element: <Layout />,
-		children: [
-			{ path: "", element: <Home /> },
-			{ path: "products", element: <ProductsList /> },
-			{
-				path: "cart",
-				element: (
-					<ProtectedRoute>
-						<Cart />
-					</ProtectedRoute>
-				),
-			},
-			{ path: "horoscope", element: <Horoscope /> },
-			{ path: "contact-us", element: <ContactUs /> },
-			{ path: "sign-in", element: <SignIn /> },
-			{ path: "sign-up", element: <SignUp /> },
-			{
-				path: "account",
-				element: (
-					<ProtectedRoute>
-						<Account />
-					</ProtectedRoute>
-				),
-				children: [
-					{ path: "", element: <MyAccount /> },
-					{ path: "address", element: <Address /> },
-					{ path: "orders", element: <Order /> },
-					{ path: "wishlist", element: <WishList /> },
-				],
-			},
-		],
-	},
+  {
+    path: "/",
+    element: <Layout />,
+    children: [
+      // home
+      {
+        path: "",
+        element: <Home />,
+      },
+
+      // products
+      {
+        path: "/products",
+        element: <ProductsList />,
+      },
+      {
+        path: "/product/:id",
+        element: <ProductDetail />,
+      },
+
+      // payment
+      {
+        path: "/cart",
+        element: (
+          <ProtectedRoute>
+            <Cart />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/checkout",
+        element: (
+          <ProtectedRoute>
+            <Checkout />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/complete",
+        element: (
+          <ProtectedRoute>
+            <Complete />
+          </ProtectedRoute>
+        ),
+      },
+
+      // horoscope
+      {
+        path: "/horoscope",
+        element: <Horoscope />,
+      },
+      {
+        path: "/horoscope/:id",
+        element: <HoroscopeDetail />,
+      },
+
+      // contact us
+      {
+        path: "/contact-us",
+        element: <ContactUs />,
+      },
+
+      // sign-in, sign-up
+      {
+        path: "/sign-in",
+        element: <SignIn />,
+      },
+      {
+        path: "/sign-up",
+        element: <SignUp />,
+      },
+
+      // account
+      {
+        path: "account",
+        element: (
+          <ProtectedRoute>
+            <Account />
+          </ProtectedRoute>
+        ),
+        children: [
+          {
+            path: "",
+            element: <MyAccount />,
+          },
+          {
+            path: "address",
+            element: <Address />,
+          },
+          {
+            path: "orders",
+            element: <Order />,
+          },
+          {
+            path: "wishlist",
+            element: <WishList />,
+          },
+        ],
+      },
+    ],
+  },
 ]);
 
 export default router;

@@ -1,19 +1,37 @@
-import React, { useState, useContext } from "react";
-import { AiFillStar } from "react-icons/ai";
-import { RiShareForwardLine } from "react-icons/ri";
-import { MdOutlineNavigateNext } from "react-icons/md";
+import React, { useState } from "react";
+// icons
+import { Star } from "lucide-react";
+import { Share2 } from "lucide-react";
+import { Heart } from "lucide-react";
+import { ChevronRight } from "lucide-react";
+import { Plus } from "lucide-react";
+import { Minus } from "lucide-react";
+import { ShoppingCart } from "lucide-react";
 
-// context
-import { CartContext } from "../../../context/CartContext";
+// components
+import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/components/ui/use-toast";
+
+//
+import useCart from "@/hooks/useCart";
 
 const ProductAction = ({ product }) => {
-  const { addToCart } = useContext(CartContext);
+  const { toast } = useToast();
+  const { addItem } = useCart();
+  const [isFavorite, setIsFavorite] = useState(false);
   const [quantity, setQuantity] = useState(1);
+  const [selectedSize, setSelectedSize] = useState("");
+  const [selectedColor, setSelectedColor] = useState("");
 
   const handleAddToCart = () => {
-    addToCart(product, quantity);
-    console.log("Adding to cart:", product, quantity);
+    addItem(product._id, quantity);
+    toast({
+      title: "Product added to cart successfully.",
+      description: `Added ${quantity} ${product.name} to cart`,
+      duration: 3000,
+      variant: "success",
+    });
   };
 
   const increaseQuantity = () => {
@@ -26,111 +44,168 @@ const ProductAction = ({ product }) => {
     );
   };
 
+  // Star rating logic
+  const filledStars = Math.floor(product.rating);
+  const emptyStars = 5 - filledStars;
+
   return (
-    <>
-      <div className="flex flex-col self-stretch pb-20 mt-8 grow lg:mt-0">
-        <div className="flex flex-col px-4 pb-4">
-          <div className="flex flex-col pb-6 border-b border-gray-200 border-solid whitespace-nowrap">
-            <div className="">
-              <div className="flex items-center justify-between mt-1">
-                <div className="flex items-center gap-2.5">
-                  <div className="flex space-x-1">
-                    <AiFillStar className="w-4 h-4 text-yellow-500" />
-                    <AiFillStar className="w-4 h-4 text-yellow-500" />
-                    <AiFillStar className="w-4 h-4 text-yellow-500" />
-                    <AiFillStar className="w-4 h-4 text-yellow-500" />
-                    <AiFillStar className="w-4 h-4 text-yellow-500" />
-                  </div>
-                  <div>Reviews</div>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div>Share</div>
-                  <div>
-                    <RiShareForwardLine className="w-4 h-4" />
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="flex flex-wrap gap-3 mt-4 font-medium">
-              <div className="text-4xl leading-9 tracking-tight text-neutral-900">
-                {product?.discount
-                  ? `$${product.discount}`
-                  : `$${product?.price || "0.00"}`}
-              </div>
-              <div className="my-auto text-xl leading-7 text-zinc-500">
-                {product?.discount ? `$${product?.price}` : null}
-              </div>
-            </div>
-          </div>
-          <div className="self-start mt-4 text-base font-semibold leading-7 text-zinc-500">
-            Power
-          </div>
-          <div className="self-start mt-2 text-xl font-medium leading-8 text-black">
-            Up Luck ++ 🍀
-          </div>
-          <div className="flex self-start justify-between gap-5 mt-6">
-            <div className="flex gap-1 self-start mt-1.5 text-base font-semibold leading-7 text-zinc-500">
-              <div>Choose Color</div>
-              <MdOutlineNavigateNext className="w-6 h-6" />
-            </div>
-            <div className="flex justify-center gap-2">
-              <div className="w-8 h-8 bg-teal-400 rounded-full shrink-0"></div>
-              <div className="w-8 h-8 bg-pink-600 rounded-full shrink-0"></div>
-              <div className="w-8 h-8 rounded-full shrink-0 bg-amber-100"></div>
-            </div>
-          </div>
-          <div className="flex flex-wrap justify-between gap-1 mt-6">
-            <div className="text-base font-semibold leading-7 text-neutral-900">
-              Select Size
-            </div>
-            <div className="text-sm font-medium leading-7 text-neutral-700">
-              Size Guide
-            </div>
-          </div>
-          <div className="flex flex-wrap gap-4 pr-5 mt-4 text-base font-semibold leading-7 text-black lg:pr-20 whitespace-nowrap">
-            {["50", "50", "50", "50", "50"].map((size, index) => (
-              <button
-                key={index}
-                className="flex flex-col justify-center px-8 py-3.5 border border-solid border-neutral-700 rounded-md transition-transform transform hover:scale-105 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-purple-500"
-              >
-                {size}
-              </button>
-            ))}
-          </div>
+    <section className="flex flex-col gap-4">
+      <div className="flex items-center justify-between">
+        <div className="flex gap-2 items-center">
+          {Array.from({ length: filledStars }, (_, index) => (
+            <Star
+              fill="#FFC107"
+              className="w-4 h-4 text-[#FFC107]"
+              key={index}
+            />
+          ))}
+          {Array.from({ length: emptyStars }, (_, index) => (
+            <Star
+              className="w-4 h-4 text-[#FFC107]"
+              key={index + filledStars}
+            />
+          ))}
         </div>
-        <div className="flex flex-col px-4 py-8 mt-2.5">
-          <div className="flex flex-wrap items-center justify-between gap-5">
-            <div className="self-stretch my-auto text-base leading-7 text-center text-neutral-700">
-              Quantity
-            </div>
-            <div className="flex items-center self-stretch justify-center gap-3 px-4 py-3 rounded-lg bg-neutral-100">
-              <button
-                onClick={decreaseQuantity}
-                className="px-4 py-2 bg-gray-200 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500"
-              >
-                -
-              </button>
-              <div>{quantity}</div>
-              <button
-                onClick={increaseQuantity}
-                className="px-4 py-2 bg-gray-200 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500"
-              >
-                +
-              </button>
-            </div>
-            <div className="self-stretch my-auto text-base leading-7 text-center text-neutral-700">
-              96 pieces available
-            </div>
-          </div>
-          <div className="flex flex-wrap gap-4 pr-5 mt-8 text-lg font-medium leading-8 tracking-tight text-center text-white lg:pr-20">
-            <Button size="lg" onClick={handleAddToCart}>
-              Add to Cart
-            </Button>
-            <Button size="lg">Buy Now</Button>
-          </div>
+        <div className="flex gap-2 items-center">
+          <p>Share</p>
+          <Share2 className="w-4 h-4" />
         </div>
       </div>
-    </>
+
+      <div className="flex flex-col gap-2">
+        <h1 className="text-4xl font-bold">{product.name}</h1>
+        <div className="flex items-center justify-between">
+          <p className="text-xl font-semibold">{product.price} Bath</p>
+          <button
+            onClick={() => setIsFavorite(!isFavorite)}
+            className="relative flex items-center justify-center focus:outline-none"
+          >
+            <Heart
+              className={`w-6 h-6 transition-transform duration-300 ease-in-out ${
+                isFavorite
+                  ? "text-[#FFC107] transform scale-125"
+                  : "text-gray-400"
+              }`}
+              fill={isFavorite ? "#FFC107" : "none"}
+              stroke={isFavorite ? "#FFC107" : "currentColor"}
+            />
+          </button>
+        </div>
+      </div>
+
+      <Separator className="my-4" />
+
+      <div className="flex flex-col gap-2">
+        <p className="text-lg font-semibold text-base-600">Power</p>
+        <p className="text-xl font-extrabold uppercase">
+          {product.power}{" "}
+          {product.power === "luck"
+            ? "🍀"
+            : product.power === "love"
+            ? "❤️"
+            : product.power === "success"
+            ? "🏆"
+            : product.power === "strength"
+            ? "💪"
+            : ""}
+        </p>
+      </div>
+
+      {/* color */}
+      <div className="flex items-center gap-4 my-4">
+        <div className="flex items-center gap-2">
+          <p className="text-lg font-semibold text-base-600">Choose Color</p>
+          <ChevronRight className="w-4 h-4 text-base-600" />
+        </div>
+        <div className="flex justify-center gap-2">
+          {["teal-400", "pink-600", "amber-100"].map((color, index) => (
+            <label
+              key={index}
+              className={`w-6 h-6 rounded-full cursor-pointer bg-${color} ${
+                selectedColor === color
+                  ? "ring-2 ring-offset-2 ring-gray-800"
+                  : ""
+              }`}
+            >
+              <input
+                type="radio"
+                name="color"
+                value={color}
+                className="hidden"
+                onChange={() => setSelectedColor(color)}
+              />
+            </label>
+          ))}
+        </div>
+      </div>
+
+      <div className="flex flex-col gap-2">
+        <div className="flex items-center justify-between gap-4">
+          <p className="text-lg font-semibold">Select Size</p>
+          <p className="text-sm cursor-pointer">Size Guide</p>
+        </div>
+
+        <div className="flex flex-wrap gap-4">
+          {["10", "20", "30", "40", "50"].map((size, index) => (
+            <label
+              key={index}
+              className={`w-16 h-10 flex items-center justify-center border rounded-md cursor-pointer ${
+                selectedSize === size ? "bg-gray-300" : "hover:bg-gray-200"
+              }`}
+            >
+              <input
+                type="radio"
+                name="size"
+                value={size}
+                className="hidden"
+                onChange={() => setSelectedSize(size)}
+              />
+              {size}
+            </label>
+          ))}
+        </div>
+      </div>
+
+      {/* quantity */}
+      <div className="flex gap-4 items-center mt-4 lg:mt-8">
+        <p>Quantity</p>
+        <div className="flex items-center gap-2 border rounded-lg">
+          <Button
+            variant="none"
+            size="icon"
+            onClick={decreaseQuantity}
+            className="w-8"
+          >
+            <Minus className="w-4 h-4" />
+          </Button>
+          <span className="px-2 py-1.5 text-lg font-semibold">{quantity}</span>
+          <Button
+            variant="none"
+            size="icon"
+            onClick={increaseQuantity}
+            className="w-8"
+          >
+            <Plus className="w-4 h-4" />
+          </Button>
+        </div>
+        <p>{product.qty_instock} pieces available</p>
+      </div>
+
+      {/* add to cart and buy */}
+      <div className="flex gap-4 mt-4 lg:mt-8">
+        <Button
+          variant="accent"
+          onClick={handleAddToCart}
+          className="w-48 flex items-center gap-2"
+        >
+          <ShoppingCart className="w-4 h-4" />
+          <p>Add to cart</p>
+        </Button>
+        <Button variant="default" className="w-48 flex items-center gap-2">
+          <p>Buy now</p>
+        </Button>
+      </div>
+    </section>
   );
 };
 

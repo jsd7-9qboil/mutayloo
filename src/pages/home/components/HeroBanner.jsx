@@ -30,9 +30,6 @@ const BannerItem = ({ banner }) => {
             className="text-2xl font-medium hidden lg:block"
             dangerouslySetInnerHTML={{ __html: banner.subtitle }}
           />
-          <div className="flex gap-4">
-            <Button className="px-8">Click me</Button>
-          </div>
         </div>
         <div className="hidden lg:block"></div>
       </div>

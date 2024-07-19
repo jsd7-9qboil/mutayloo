@@ -1,20 +1,21 @@
+import React from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
-
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
-
 // import required modules
 import { Pagination } from "swiper/modules";
 import ProductCard from "@/components/ProductCard";
+import { Link } from "react-router-dom";
 
-// data
-import productsData from "@/data/product";
+const OurProducts = ({ productsData }) => {
+  const handleLinkClick = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
-const OurProducts = () => {
   return (
-    <section>
+    <section className="mb-8">
       <div className="container">
         <div className="flex justify-between items-center py-8">
           <h2 className="font-bold">Our Products</h2>
@@ -41,14 +42,17 @@ const OurProducts = () => {
             modules={[Pagination]}
             className="mySwiper"
           >
-            {productsData.map((product) => (
-              <SwiperSlide key={product.id}>
-                <ProductCard product={product} />
+            {productsData.slice(0, 10).map((product) => (
+              <SwiperSlide key={product._id}>
+                <Link
+                  to={`/product/${product._id}`}
+                  className="block h-full"
+                  onClick={handleLinkClick}
+                >
+                  <ProductCard product={product} />
+                </Link>
               </SwiperSlide>
             ))}
-            {/* <SwiperSlide>
-              <ProductCard />
-            </SwiperSlide> */}
           </Swiper>
         </div>
       </div>
